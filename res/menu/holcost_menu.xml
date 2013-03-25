@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/createDudeMenu"
+        android:title="@string/dude_create"/>
+    
+    <item
+        android:id="@+id/closeHolcostMenu"
+        android:title="@string/holcost_close"/>
+    
+    <item
+        android:id="@+id/deleteHolcostMenu"
+        android:title="@string/holcost_delete"/>
+
+</menu>

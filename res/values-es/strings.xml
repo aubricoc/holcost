@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">holcost</string>
+    <string name="holcost_close">Cerrar holcost</string>
+    <string name="holcost_delete">Eliminar holcost</string>
+    <string name="dude_create">Crear amigo</string>
+    <string name="cost_delete">Eliminar gasto</string>
+    <string name="dude_delete">Eliminar amigo</string>
+    <string name="create_cost">Añadir gasto</string>
+    <string name="list_cost">Listar gastos</string>
+    <string name="has_debt">{0} tiene una deuda de {1}</string>
+    <string name="has_nodebt">{0} debe recibir {1}</string>
+    <string name="create_holcost_title">Crear un nuevo holcost</string>
+    <string name="holcost_name">Nombre</string>
+    <string name="holcost_save">Guardar</string>
+    <string name="holcost_list">Listar holcosts existentes</string>
+    <string name="list_holcost_title">Seleccionar el holcost a abrir</string>
+    <string name="create_dude_title">Crear un nuevo amigo</string>
+    <string name="dude_name">Nombre</string>
+    <string name="dude_save">Guardar</string>
+    <string name="create_cost_title">Crear un nuevo gasto</string>
+    <string name="cost_name">Nombre</string>
+    <string name="cost_amount">Importe</string>
+    <string name="cost_payer">Pagador</string>
+    <string name="cost_participants">Participantes</string>
+    <string name="cost_save">Guardar</string>
+    <string name="list_cost_title">Gastos</string>
+    <string name="payed_costs">Gastos pagados</string>
+    <string name="view_payed_costs">Ver gastos pagados</string>
+    <string name="participant_costs">Gastos a los que participa</string>
+    <string name="view_participant_costs">Ver gastos a los que participa</string>
+    <string name="debt_spent">Gastado:</string>
+    <string name="debt_payed">Pagado:</string>
+    <string name="debt_debt">Deuda:</string>
+    <string name="alert_delete_holcost">¿Seguro que quieres eliminar este holcost?</string>
+    <string name="alert_delete_dude">¿Seguro que quieres eliminar este amigo?</string>
+    <string name="alert_delete_cost">¿Seguro que quieres eliminar este gasto?</string>
+    <string name="alert_yes">Si</string>
+    <string name="alert_no">No</string>
+    <string name="error_name_required">El nombre es obligatorio</string>
+    <string name="error_amount_required">El importe es obligatorio</string>
+    <string name="error_participant_required">Es obligatorio al menos un participante</string>
+    <string name="error_dude_duplicated">Amigo duplicado</string>
+    <string name="error_dude_have_payed_costs">El amigo tiene gastos pagados</string>
+
+</resources>
