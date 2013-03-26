@@ -22,7 +22,8 @@ public class HolcostDao extends GenericDao<Holcost> {
 
 	@Override
 	protected String[] getColumns() {
-		return new String[] { "id", "name", "active" };
+		return new String[] { "id", "name", "active", "server_id",
+				"pending_changes", "removed" };
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class HolcostDao extends GenericDao<Holcost> {
 	protected String getIdentifierWhere() {
 		return "id=?";
 	}
-	
+
 	@Override
 	protected String[] getIdentifierWhereValues(Holcost holcost) {
 		return new String[] { holcost.getId().toString() };
@@ -45,7 +46,10 @@ public class HolcostDao extends GenericDao<Holcost> {
 		Holcost holcost = new Holcost();
 		holcost.setId(cursor.getLong(0));
 		holcost.setName(cursor.getString(1));
-		holcost.setActive(cursor.getInt(2) == 1);
+		holcost.setActive(toBoolean(cursor.getInt(2)));
+		holcost.setServerId(cursor.getLong(3));
+		holcost.setPendingChanges(toBoolean(cursor.getInt(4)));
+		holcost.setRemoved(toBoolean(cursor.getInt(5)));
 		return holcost;
 	}
 
@@ -54,14 +58,17 @@ public class HolcostDao extends GenericDao<Holcost> {
 		ContentValues values = new ContentValues();
 
 		values.put("name", holcost.getName());
-		values.put("active", holcost.getActive() != null && holcost.getActive() ? 1 : 0);
+		values.put("active", toInteger(holcost.getActive()));
+		values.put("server_id", holcost.getServerId());
+		values.put("pending_changes", toInteger(holcost.getPendingChanges()));
+		values.put("removed", toInteger(holcost.getRemoved()));
 
 		return values;
 	}
-	
+
 	public Holcost getActiveHolcost() {
 		String whereClause = "active=?";
-		String[] whereArgs = {"1"};
+		String[] whereArgs = { "1" };
 		List<Holcost> holcosts = getBy(whereClause, whereArgs);
 		if (holcosts.isEmpty()) {
 			return null;

@@ -1,17 +1,25 @@
 package cat.aubricoc.holcost.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import cat.aubricoc.holcost.db.HolcostDatabaseHelper;
+import cat.aubricoc.holcost.util.StringUtils;
 
 public abstract class GenericDao<T> {
 
+	private static final String DATE_FORMAT = "yyyyMMddHHmmssSSSZ";
+	
 	protected SQLiteDatabase database;
 	protected HolcostDatabaseHelper dbHelper;
 
@@ -127,6 +135,42 @@ public abstract class GenericDao<T> {
 		} finally {
 			close();
 		}
+	}
+	
+	public boolean exists(T object) {
+		T result = getById(object);
+		return result != null;
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	protected Date toDate(String text) {
+		if (StringUtils.isEmpty(text)) {
+			return null;
+		}
+
+		try {
+			return new SimpleDateFormat(DATE_FORMAT).parse(text);
+		} catch (ParseException e) {
+			Log.e(GenericDao.class.getName(), "Error parsing DB date", e);
+		}
+		return null;
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	protected String toString(Date date) {
+		if (date == null) {
+			return null;
+		}
+
+		return new SimpleDateFormat(DATE_FORMAT).format(date);
+	}
+
+	protected boolean toBoolean(Integer integer) {
+		return integer == 1;
+	}
+
+	protected Integer toInteger(boolean bool) {
+		return bool ? 1 : 0;
 	}
 
 	protected abstract String getTableName();

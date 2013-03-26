@@ -5,6 +5,8 @@ public class DudeCost {
 	private Dude dude;
 	
 	private Cost cost;
+	
+	private Boolean removed;
 
 	public Dude getDude() {
 		return dude;
@@ -20,5 +22,13 @@ public class DudeCost {
 
 	public void setCost(Cost cost) {
 		this.cost = cost;
+	}
+
+	public Boolean getRemoved() {
+		return removed;
+	}
+
+	public void setRemoved(Boolean removed) {
+		this.removed = removed;
 	}
 }

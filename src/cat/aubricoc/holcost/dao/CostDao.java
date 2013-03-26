@@ -1,7 +1,5 @@
 package cat.aubricoc.holcost.dao;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -13,8 +11,6 @@ import cat.aubricoc.holcost.model.Dude;
 public class CostDao extends GenericDao<Cost> {
 
 	private static final String TABLE_NAME = "cost";
-	
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	public CostDao(Context context) {
 		super(context);
@@ -27,7 +23,8 @@ public class CostDao extends GenericDao<Cost> {
 
 	@Override
 	protected String[] getColumns() {
-		return new String[] { "id", "name", "amount", "date", "payer", "holcost" };
+		return new String[] { "id", "name", "amount", "date", "payer",
+				"holcost", "server_id", "pending_changes", "removed" };
 	}
 
 	@Override
@@ -36,14 +33,13 @@ public class CostDao extends GenericDao<Cost> {
 		cost.setId(cursor.getLong(0));
 		cost.setName(cursor.getString(1));
 		cost.setAmount(cursor.getDouble(2));
-		try {
-			cost.setDate(DATE_FORMAT.parse(cursor.getString(3)));
-		} catch (ParseException e) {
-			throw new IllegalStateException(e);
-		}
+		cost.setDate(toDate(cursor.getString(3)));
 		cost.setPayer(new Dude());
 		cost.getPayer().setId(cursor.getLong(4));
 		cost.setHolcostId(cursor.getLong(5));
+		cost.setServerId(cursor.getLong(6));
+		cost.setPendingChanges(toBoolean(cursor.getInt(7)));
+		cost.setRemoved(toBoolean(cursor.getInt(8)));
 		return cost;
 	}
 
@@ -59,7 +55,7 @@ public class CostDao extends GenericDao<Cost> {
 
 	@Override
 	protected String[] getIdentifierWhereValues(Cost cost) {
-		return new String[]{cost.getId().toString()};
+		return new String[] { cost.getId().toString() };
 	}
 
 	@Override
@@ -68,22 +64,25 @@ public class CostDao extends GenericDao<Cost> {
 
 		values.put("name", cost.getName());
 		values.put("amount", cost.getAmount());
-		values.put("date", DATE_FORMAT.format(cost.getDate()));
+		values.put("date", toString(cost.getDate()));
 		values.put("payer", cost.getPayer().getId());
 		values.put("holcost", cost.getHolcostId());
+		values.put("server_id", cost.getServerId());
+		values.put("pending_changes", toInteger(cost.getPendingChanges()));
+		values.put("removed", toInteger(cost.getRemoved()));
 
 		return values;
 	}
 
 	public List<Cost> getByPayer(Long payerId) {
 		String whereClause = "payer=?";
-		String[] whereArgs = {payerId.toString()};
+		String[] whereArgs = { payerId.toString() };
 		return getBy(whereClause, whereArgs);
 	}
-	
+
 	public List<Cost> getByHolcost(Long holcostId) {
 		String whereClause = "holcost=?";
-		String[] whereArgs = {holcostId.toString()};
+		String[] whereArgs = { holcostId.toString() };
 		return getBy(whereClause, whereArgs);
 	}
 
