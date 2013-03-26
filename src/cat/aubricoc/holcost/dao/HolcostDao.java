@@ -66,18 +66,20 @@ public class HolcostDao extends GenericDao<Holcost> {
 		return values;
 	}
 
-	public Holcost getActiveHolcost() {
+	public List<Holcost> getByActive(boolean active) {
 		String whereClause = "active=?";
-		String[] whereArgs = { "1" };
-		List<Holcost> holcosts = getBy(whereClause, whereArgs);
-		if (holcosts.isEmpty()) {
-			return null;
-		}
-		return holcosts.get(0);
+		String[] whereArgs = { toInteger(active).toString() };
+		return getBy(whereClause, whereArgs);
 	}
 
 	@Override
 	protected String getOrderBy() {
 		return "name";
+	}
+
+	public List<Holcost> getByRemoved(boolean removed) {
+		String whereClause = "removed=?";
+		String[] whereArgs = { toInteger(removed).toString() };
+		return getBy(whereClause, whereArgs);
 	}
 }

@@ -15,7 +15,11 @@ public class HolcostService {
 	}
 
 	public Holcost getActiveHolcost() {
-		return holcostDao.getActiveHolcost();
+		List<Holcost> holcosts = holcostDao.getByActive(true);
+		if (holcosts.isEmpty()) {
+			return null;
+		}
+		return holcosts.get(0);
 	}
 
 	public void createHolcost(String name) {
@@ -25,6 +29,9 @@ public class HolcostService {
 		Holcost holcost = new Holcost();
 		holcost.setName(name);
 		holcost.setActive(true);
+		holcost.setRemoved(false);
+		holcost.setPendingChanges(true);
+		holcost.setServerId(null);
 
 		holcostDao.create(holcost);
 	}
@@ -42,7 +49,7 @@ public class HolcostService {
 	}
 
 	public List<Holcost> getAllHolcosts() {
-		return holcostDao.getAll();
+		return holcostDao.getByRemoved(false);
 	}
 
 	public void openHolcost(Long id) {
@@ -69,6 +76,8 @@ public class HolcostService {
 	}
 
 	public void deleteHolcost(Holcost holcost) {
-		holcostDao.delete(holcost);
+		holcost.setRemoved(true);
+		holcost.setActive(false);
+		holcostDao.update(holcost);
 	}
 }

@@ -70,9 +70,10 @@ public class DudeDao extends GenericDao<Dude> {
 		return values;
 	}
 
-	public List<Dude> getByHolcost(Long holcostId) {
-		String whereClause = "holcost=?";
-		String[] whereArgs = { holcostId.toString() };
+	public List<Dude> getByHolcostAndRemoved(Long holcostId, boolean removed) {
+		String whereClause = "holcost=? and removed=?";
+		String[] whereArgs = { holcostId.toString(),
+				toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 

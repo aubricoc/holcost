@@ -6,6 +6,8 @@ public class DudeCost {
 	
 	private Cost cost;
 	
+	private Boolean pendingChanges;
+	
 	private Boolean removed;
 
 	public Dude getDude() {
@@ -22,6 +24,14 @@ public class DudeCost {
 
 	public void setCost(Cost cost) {
 		this.cost = cost;
+	}
+
+	public Boolean getPendingChanges() {
+		return pendingChanges;
+	}
+
+	public void setPendingChanges(Boolean pendingChanges) {
+		this.pendingChanges = pendingChanges;
 	}
 
 	public Boolean getRemoved() {

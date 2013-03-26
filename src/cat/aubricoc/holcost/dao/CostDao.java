@@ -74,15 +74,16 @@ public class CostDao extends GenericDao<Cost> {
 		return values;
 	}
 
-	public List<Cost> getByPayer(Long payerId) {
-		String whereClause = "payer=?";
-		String[] whereArgs = { payerId.toString() };
+	public List<Cost> getByPayerAndRemoved(Long payerId, boolean removed) {
+		String whereClause = "payer=? and removed=?";
+		String[] whereArgs = { payerId.toString(),
+				toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 
-	public List<Cost> getByHolcost(Long holcostId) {
-		String whereClause = "holcost=?";
-		String[] whereArgs = { holcostId.toString() };
+	public List<Cost> getByHolcostAndRemoved(Long holcostId, boolean removed) {
+		String whereClause = "holcost=? and removed=?";
+		String[] whereArgs = { holcostId.toString(), toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 

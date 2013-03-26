@@ -58,6 +58,7 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 		sqLiteDatabase.execSQL("create table dude_cost (" +
 				"dude integer, " +
 				"cost integer, " +
+				"pending_changes integer not null default 0, " +
 				"removed integer not null default 0, " +
 				"PRIMARY KEY (dude, cost), " +
 				"FOREIGN KEY(dude) REFERENCES dude(id) ON DELETE CASCADE, " +
@@ -91,6 +92,7 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 			sqLiteDatabase.execSQL("alter table cost add column pending_changes integer not null default 0;");
 			sqLiteDatabase.execSQL("alter table cost add column removed integer not null default 0;");
 			
+			sqLiteDatabase.execSQL("alter table dude_cost add column pending_changes integer not null default 0;");
 			sqLiteDatabase.execSQL("alter table dude_cost add column removed integer not null default 0;");
 			
 			SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");

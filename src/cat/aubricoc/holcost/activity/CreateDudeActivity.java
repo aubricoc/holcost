@@ -41,7 +41,7 @@ public class CreateDudeActivity extends Activity {
 
 					Holcost activeHolcost = holcostService.getActiveHolcost();
 
-					if (dudeService.existsDude(name, activeHolcost)) {
+					if (dudeService.existsDudeName(name, activeHolcost)) {
 						Toast toast = Toast.makeText(CreateDudeActivity.this,
 								getText(R.string.error_dude_duplicated), 3);
 						toast.show();

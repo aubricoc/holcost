@@ -169,7 +169,7 @@ public class CostActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.deleteCostMenu:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.alert_delete_dude)
+			builder.setMessage(R.string.alert_delete_cost)
 					.setCancelable(true)
 					.setPositiveButton(R.string.alert_yes,
 							new DialogInterface.OnClickListener() {

@@ -23,14 +23,19 @@ public class DudeService {
 		Dude dude = new Dude();
 		dude.setName(name);
 		dude.setHolcostId(holcost.getId());
+		dude.setEmail(null);
+		dude.setIsUser(false);
+		dude.setPendingChanges(true);
+		dude.setRemoved(false);
+		dude.setServerId(null);
 		dudeDao.create(dude);
 	}
 
 	public List<Dude> getDudesByHolcost(Holcost holcost) {
-		return dudeDao.getByHolcost(holcost.getId());
+		return dudeDao.getByHolcostAndRemoved(holcost.getId(), false);
 	}
 
-	public boolean existsDude(String name, Holcost holcost) {
+	public boolean existsDudeName(String name, Holcost holcost) {
 		List<Dude> dudes = getDudesByHolcost(holcost);
 		for (Dude dude : dudes) {
 			if (dude.getName().trim().equalsIgnoreCase(name.trim())) {
@@ -47,13 +52,15 @@ public class DudeService {
 	}
 
 	public void deleteDude(Long dudeId) {
-		Dude dude = new Dude();
+		Dude dude = getDudeById(dudeId);
 		dude.setId(dudeId);
-		dudeDao.delete(dude);
+		dude.setRemoved(true);
+		dude.setPendingChanges(true);
+		dudeDao.update(dude);
 	}
 
 	public boolean dudeHavePayedCosts(Long dudeId) {
-		List<Cost> payedCosts = costDao.getByPayer(dudeId);
+		List<Cost> payedCosts = costDao.getByPayerAndRemoved(dudeId, false);
 		return !payedCosts.isEmpty();
 	}
 }

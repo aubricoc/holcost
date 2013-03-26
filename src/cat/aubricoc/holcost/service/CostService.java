@@ -31,6 +31,9 @@ public class CostService {
 		cost.setDate(new Date());
 		cost.setPayer(payer);
 		cost.setHolcostId(holcost.getId());
+		cost.setPendingChanges(true);
+		cost.setRemoved(false);
+		cost.setServerId(null);
 		
 		costDao.create(cost);
 		
@@ -38,13 +41,15 @@ public class CostService {
 			DudeCost dudeCost = new DudeCost();
 			dudeCost.setDude(participant);
 			dudeCost.setCost(cost);
+			dudeCost.setPendingChanges(true);
+			dudeCost.setRemoved(false);
 			
 			dudeCostDao.create(dudeCost);
 		}
 	}
 	
 	public List<Cost> getCostsByHolcost(Holcost holcost) {
-		return costDao.getByHolcost(holcost.getId());
+		return costDao.getByHolcostAndRemoved(holcost.getId(), false);
 	}
 	
 	public boolean existsCosts(Holcost holcost) {
@@ -61,7 +66,7 @@ public class CostService {
 	}
 
 	public List<Dude> getParticipants(Cost cost) {
-		List<DudeCost> dudeCosts = dudeCostDao.getByCost(cost.getId());
+		List<DudeCost> dudeCosts = dudeCostDao.getByCostAndRemoved(cost.getId(), false);
 		List<Dude> dudes = new ArrayList<Dude>();
 		for (DudeCost dudeCost : dudeCosts) {
 			dudes.add(dudeCost.getDude());
@@ -74,10 +79,11 @@ public class CostService {
 		cost.setName(name);
 		cost.setAmount(amount);
 		cost.setPayer(payer);
+		cost.setPendingChanges(true);
 		
 		costDao.update(cost);
 		
-		List<DudeCost> oldDudeCosts = dudeCostDao.getByCost(cost.getId());
+		List<DudeCost> oldDudeCosts = dudeCostDao.getByCostAndRemoved(cost.getId(), false);
 		for (Dude participant : participants) {
 			boolean create = true;
 			for (DudeCost oldDudeCost : oldDudeCosts){
@@ -89,6 +95,8 @@ public class CostService {
 				DudeCost dudeCost = new DudeCost();
 				dudeCost.setDude(participant);
 				dudeCost.setCost(cost);
+				dudeCost.setPendingChanges(true);
+				dudeCost.setRemoved(false);
 				
 				dudeCostDao.create(dudeCost);
 			}
@@ -102,23 +110,26 @@ public class CostService {
 				}
 			}
 			if (remove) {
-				dudeCostDao.delete(oldDudeCost);
+				oldDudeCost.setPendingChanges(true);
+				oldDudeCost.setRemoved(true);
+				dudeCostDao.update(oldDudeCost);
 			}
 		}
 	}
 
 	public void deleteCost(Long costId) {
-		Cost cost = new Cost();
-		cost.setId(costId);
-		costDao.delete(cost);
+		Cost cost = getCostById(costId);
+		cost.setPendingChanges(true);
+		cost.setRemoved(true);
+		costDao.update(cost);
 	}
 	
 	public List<Cost> getCostsByPayer(Long payerId) {
-		return costDao.getByPayer(payerId);
+		return costDao.getByPayerAndRemoved(payerId, false);
 	}
 
 	public List<Cost> getCostsByParticipant(Long dudeId) {
-		List<DudeCost> dudeCosts = dudeCostDao.getByDude(dudeId);
+		List<DudeCost> dudeCosts = dudeCostDao.getByDudeAndRemoved(dudeId, false);
 		List<Cost> costs = new ArrayList<Cost>();
 		for (DudeCost dudeCost : dudeCosts) {
 			costs.add(costDao.getById(dudeCost.getCost()));

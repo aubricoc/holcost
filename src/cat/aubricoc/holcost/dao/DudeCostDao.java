@@ -24,7 +24,7 @@ public class DudeCostDao extends GenericDao<DudeCost> {
 
 	@Override
 	protected String[] getColumns() {
-		return new String[] { "dude", "cost", "removed" };
+		return new String[] { "dude", "cost", "pending_changes", "removed" };
 	}
 
 	@Override
@@ -34,7 +34,8 @@ public class DudeCostDao extends GenericDao<DudeCost> {
 		dudeCost.getDude().setId(cursor.getLong(0));
 		dudeCost.setCost(new Cost());
 		dudeCost.getCost().setId(cursor.getLong(1));
-		dudeCost.setRemoved(toBoolean(cursor.getInt(2)));
+		dudeCost.setPendingChanges(toBoolean(cursor.getInt(2)));
+		dudeCost.setRemoved(toBoolean(cursor.getInt(3)));
 		return dudeCost;
 	}
 
@@ -60,20 +61,21 @@ public class DudeCostDao extends GenericDao<DudeCost> {
 
 		values.put("dude", dudeCost.getDude().getId());
 		values.put("cost", dudeCost.getCost().getId());
+		values.put("pending_changes", toInteger(dudeCost.getPendingChanges()));
 		values.put("removed", toInteger(dudeCost.getRemoved()));
 
 		return values;
 	}
 
-	public List<DudeCost> getByDude(Long dudeId) {
-		String whereClause = "dude=?";
-		String[] whereArgs = { dudeId.toString() };
+	public List<DudeCost> getByDudeAndRemoved(Long dudeId, boolean removed) {
+		String whereClause = "dude=? and removed =?";
+		String[] whereArgs = { dudeId.toString(), toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 
-	public List<DudeCost> getByCost(Long costId) {
-		String whereClause = "cost=?";
-		String[] whereArgs = { costId.toString() };
+	public List<DudeCost> getByCostAndRemoved(Long costId, boolean removed) {
+		String whereClause = "cost=? and removed=?";
+		String[] whereArgs = { costId.toString(), toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 
