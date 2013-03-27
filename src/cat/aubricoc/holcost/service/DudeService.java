@@ -4,19 +4,23 @@ import java.util.List;
 
 import android.content.Context;
 import cat.aubricoc.holcost.dao.CostDao;
+import cat.aubricoc.holcost.dao.DudeCostDao;
 import cat.aubricoc.holcost.dao.DudeDao;
 import cat.aubricoc.holcost.model.Cost;
 import cat.aubricoc.holcost.model.Dude;
+import cat.aubricoc.holcost.model.DudeCost;
 import cat.aubricoc.holcost.model.Holcost;
 
 public class DudeService {
 
 	private DudeDao dudeDao;
 	private CostDao costDao;
+	private DudeCostDao dudeCostDao;
 	
 	public DudeService(Context context) {
 		dudeDao = new DudeDao(context);
 		costDao = new CostDao(context);
+		dudeCostDao = new DudeCostDao(context);
 	}
 	
 	public void createDude(String name, Holcost holcost) {
@@ -57,6 +61,13 @@ public class DudeService {
 		dude.setRemoved(true);
 		dude.setPendingChanges(true);
 		dudeDao.update(dude);
+		
+		List<DudeCost> dudeCosts = dudeCostDao.getByDudeAndRemoved(dudeId, false);
+		for (DudeCost dudeCost : dudeCosts) {
+			dudeCost.setPendingChanges(true);
+			dudeCost.setRemoved(true);
+			dudeCostDao.update(dudeCost);
+		}
 	}
 
 	public boolean dudeHavePayedCosts(Long dudeId) {

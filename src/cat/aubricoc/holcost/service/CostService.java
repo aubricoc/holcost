@@ -122,6 +122,13 @@ public class CostService {
 		cost.setPendingChanges(true);
 		cost.setRemoved(true);
 		costDao.update(cost);
+		
+		List<DudeCost> dudeCosts = dudeCostDao.getByCostAndRemoved(costId, false);
+		for (DudeCost dudeCost : dudeCosts) {
+			dudeCost.setPendingChanges(true);
+			dudeCost.setRemoved(true);
+			dudeCostDao.update(dudeCost);
+		}
 	}
 	
 	public List<Cost> getCostsByPayer(Long payerId) {
