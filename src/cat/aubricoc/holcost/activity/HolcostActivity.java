@@ -26,6 +26,7 @@ import cat.aubricoc.holcost.service.CostService;
 import cat.aubricoc.holcost.service.DebtService;
 import cat.aubricoc.holcost.service.DudeService;
 import cat.aubricoc.holcost.service.HolcostService;
+import cat.aubricoc.holcost.util.Utils;
 import cat.aubricoc.holcost.view.DebtListAdapter;
 
 public class HolcostActivity extends Activity {
@@ -38,6 +39,8 @@ public class HolcostActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Utils.runUploadDataService(this);
 
 		Holcost activeHolcost = holcostService.getActiveHolcost();
 

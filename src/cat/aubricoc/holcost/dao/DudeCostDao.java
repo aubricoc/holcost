@@ -67,6 +67,11 @@ public class DudeCostDao extends GenericDao<DudeCost> {
 		return values;
 	}
 
+	@Override
+	protected String getOrderBy() {
+		return null;
+	}
+
 	public List<DudeCost> getByDudeAndRemoved(Long dudeId, boolean removed) {
 		String whereClause = "dude=? and removed =?";
 		String[] whereArgs = { dudeId.toString(), toInteger(removed).toString() };
@@ -79,8 +84,18 @@ public class DudeCostDao extends GenericDao<DudeCost> {
 		return getBy(whereClause, whereArgs);
 	}
 
-	@Override
-	protected String getOrderBy() {
-		return null;
+	public List<DudeCost> getByPendingChanges(boolean pendingChanges) {
+		String whereClause = "pending_changes=?";
+		String[] whereArgs = { toInteger(pendingChanges).toString() };
+		return getBy(whereClause, whereArgs);
+	}
+
+	public List<DudeCost> getByPendingChangesAndRemoved(boolean pendingChanges,
+			boolean removed) {
+		String whereClause = "pending_changes=? and removed=?";
+		String[] whereArgs = new String[] {
+				toInteger(pendingChanges).toString(),
+				toInteger(removed).toString() };
+		return getBy(whereClause, whereArgs);
 	}
 }

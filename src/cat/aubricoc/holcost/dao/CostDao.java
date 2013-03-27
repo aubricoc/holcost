@@ -74,6 +74,11 @@ public class CostDao extends GenericDao<Cost> {
 		return values;
 	}
 
+	@Override
+	protected String getOrderBy() {
+		return "date";
+	}
+
 	public List<Cost> getByPayerAndRemoved(Long payerId, boolean removed) {
 		String whereClause = "payer=? and removed=?";
 		String[] whereArgs = { payerId.toString(),
@@ -83,12 +88,23 @@ public class CostDao extends GenericDao<Cost> {
 
 	public List<Cost> getByHolcostAndRemoved(Long holcostId, boolean removed) {
 		String whereClause = "holcost=? and removed=?";
-		String[] whereArgs = { holcostId.toString(), toInteger(removed).toString() };
+		String[] whereArgs = { holcostId.toString(),
+				toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
 
-	@Override
-	protected String getOrderBy() {
-		return "date";
+	public List<Cost> getByPendingChanges(boolean pendingChanges) {
+		String whereClause = "pending_changes=?";
+		String[] whereArgs = { toInteger(pendingChanges).toString() };
+		return getBy(whereClause, whereArgs);
+	}
+
+	public List<Cost> getByPendingChangesAndRemovedAndServerIdNull(
+			boolean pendingChanges, boolean removed, boolean serverIdNull) {
+		String whereClause = "pending_changes=? and removed=? and server_id is "
+				+ (serverIdNull ? "null" : "not null");
+		String[] whereArgs = { toInteger(pendingChanges).toString(),
+				toInteger(removed).toString() };
+		return getBy(whereClause, whereArgs);
 	}
 }

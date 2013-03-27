@@ -31,12 +31,12 @@ public class DudeDao extends GenericDao<Dude> {
 		Dude dude = new Dude();
 		dude.setId(cursor.getLong(0));
 		dude.setName(cursor.getString(1));
-		dude.setHolcostId(cursor.getLong(1));
-		dude.setEmail(cursor.getString(2));
-		dude.setIsUser(toBoolean(cursor.getInt(3)));
-		dude.setServerId(cursor.getLong(4));
-		dude.setPendingChanges(toBoolean(cursor.getInt(5)));
-		dude.setRemoved(toBoolean(cursor.getInt(6)));
+		dude.setHolcostId(cursor.getLong(2));
+		dude.setEmail(cursor.getString(3));
+		dude.setIsUser(toBoolean(cursor.getInt(4)));
+		dude.setServerId(cursor.getLong(5));
+		dude.setPendingChanges(toBoolean(cursor.getInt(6)));
+		dude.setRemoved(toBoolean(cursor.getInt(7)));
 		return dude;
 	}
 
@@ -70,6 +70,11 @@ public class DudeDao extends GenericDao<Dude> {
 		return values;
 	}
 
+	@Override
+	protected String getOrderBy() {
+		return "name";
+	}
+
 	public List<Dude> getByHolcostAndRemoved(Long holcostId, boolean removed) {
 		String whereClause = "holcost=? and removed=?";
 		String[] whereArgs = { holcostId.toString(),
@@ -77,9 +82,18 @@ public class DudeDao extends GenericDao<Dude> {
 		return getBy(whereClause, whereArgs);
 	}
 
-	@Override
-	protected String getOrderBy() {
-		return "name";
+	public List<Dude> getByPendingChanges(boolean pendingChanges) {
+		String whereClause = "pending_changes=?";
+		String[] whereArgs = { toInteger(pendingChanges).toString() };
+		return getBy(whereClause, whereArgs);
 	}
 
+	public List<Dude> getByPendingChangesAndRemovedAndServerIdNull(
+			boolean pendingChanges, boolean removed, boolean serverIdNull) {
+		String whereClause = "pending_changes=? and removed=? and server_id is "
+				+ (serverIdNull ? "null" : "not null");
+		String[] whereArgs = { toInteger(pendingChanges).toString(),
+				toInteger(removed).toString() };
+		return getBy(whereClause, whereArgs);
+	}
 }

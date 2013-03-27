@@ -82,4 +82,19 @@ public class HolcostDao extends GenericDao<Holcost> {
 		String[] whereArgs = { toInteger(removed).toString() };
 		return getBy(whereClause, whereArgs);
 	}
+
+	public List<Holcost> getByPendingChanges(boolean pendingChanges) {
+		String whereClause = "pending_changes=?";
+		String[] whereArgs = { toInteger(pendingChanges).toString() };
+		return getBy(whereClause, whereArgs);
+	}
+
+	public List<Holcost> getByPendingChangesAndRemovedAndServerIdNull(
+			boolean pendingChanges, boolean removed, boolean serverIdNull) {
+		String whereClause = "pending_changes=? and removed=? and server_id is "
+				+ (serverIdNull ? "null" : "not null");
+		String[] whereArgs = { toInteger(pendingChanges).toString(),
+				toInteger(removed).toString() };
+		return getBy(whereClause, whereArgs);
+	}
 }

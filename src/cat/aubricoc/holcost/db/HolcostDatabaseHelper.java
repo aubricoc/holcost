@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cat.aubricoc.holcost.util.Utils;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,8 +21,11 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "holcost.db";
 	private static final int DATABASE_VERSION = 2;
 	
+	private Context context;
+	
 	public HolcostDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
@@ -31,7 +36,7 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 				"name text not null, " +
 				"active integer not null, " +
 				"server_id integer, " +
-				"pending_changes integer not null default 0, " +
+				"pending_changes integer not null default 1, " +
 				"removed integer not null default 0;");
 		sqLiteDatabase.execSQL("create table dude (" +
 				"id integer primary key autoincrement, " +
@@ -40,7 +45,7 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 				"email text, " +
 				"is_user integer not null default 0, " +
 				"server_id integer, " +
-				"pending_changes integer not null default 0, " +
+				"pending_changes integer not null default 1, " +
 				"removed integer not null default 0, " +
 				"FOREIGN KEY(holcost) REFERENCES holcost(id) ON DELETE CASCADE);");
 		sqLiteDatabase.execSQL("create table cost (" +
@@ -51,14 +56,14 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 				"payer integer not null, " +
 				"holcost integer not null, " +
 				"server_id integer, " +
-				"pending_changes integer not null default 0, " +
+				"pending_changes integer not null default 1, " +
 				"removed integer not null default 0, " +
 				"FOREIGN KEY(payer) REFERENCES dude(id) ON DELETE CASCADE, " +
 				"FOREIGN KEY(holcost) REFERENCES holcost(id) ON DELETE CASCADE);");
 		sqLiteDatabase.execSQL("create table dude_cost (" +
 				"dude integer, " +
 				"cost integer, " +
-				"pending_changes integer not null default 0, " +
+				"pending_changes integer not null default 1, " +
 				"removed integer not null default 0, " +
 				"PRIMARY KEY (dude, cost), " +
 				"FOREIGN KEY(dude) REFERENCES dude(id) ON DELETE CASCADE, " +
@@ -79,20 +84,20 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 					"etag text not null);");
 			
 			sqLiteDatabase.execSQL("alter table holcost add column server_id integer;");
-			sqLiteDatabase.execSQL("alter table holcost add column pending_changes integer not null default 0;");
+			sqLiteDatabase.execSQL("alter table holcost add column pending_changes integer not null default 1;");
 			sqLiteDatabase.execSQL("alter table holcost add column removed integer not null default 0;");
 			
 			sqLiteDatabase.execSQL("alter table dude add column email text;");
 			sqLiteDatabase.execSQL("alter table dude add column is_user integer not null default 0;");
 			sqLiteDatabase.execSQL("alter table dude add column server_id integer;");
-			sqLiteDatabase.execSQL("alter table dude add column pending_changes integer not null default 0;");
+			sqLiteDatabase.execSQL("alter table dude add column pending_changes integer not null default 1;");
 			sqLiteDatabase.execSQL("alter table dude add column removed integer not null default 0;");
 			
 			sqLiteDatabase.execSQL("alter table cost add column server_id integer;");
-			sqLiteDatabase.execSQL("alter table cost add column pending_changes integer not null default 0;");
+			sqLiteDatabase.execSQL("alter table cost add column pending_changes integer not null default 1;");
 			sqLiteDatabase.execSQL("alter table cost add column removed integer not null default 0;");
 			
-			sqLiteDatabase.execSQL("alter table dude_cost add column pending_changes integer not null default 0;");
+			sqLiteDatabase.execSQL("alter table dude_cost add column pending_changes integer not null default 1;");
 			sqLiteDatabase.execSQL("alter table dude_cost add column removed integer not null default 0;");
 			
 			SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -118,6 +123,8 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 				String dateString = newDateFormat.format(entry.getValue());
 				sqLiteDatabase.execSQL("update cost set date = ? where id = ?;", new Object[]{ dateString, entry.getKey() });
 			}
+			
+			Utils.runUploadDataService(context);
 		}
 		
 	}
