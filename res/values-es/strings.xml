@@ -32,7 +32,6 @@
     <string name="view_participant_costs">Ver gastos a los que participa</string>
     <string name="debt_spent">Gastado:</string>
     <string name="debt_payed">Pagado:</string>
-    <string name="debt_debt">Deuda:</string>
     <string name="alert_delete_holcost">¿Seguro que quieres eliminar este holcost?</string>
     <string name="alert_delete_dude">¿Seguro que quieres eliminar este amigo?</string>
     <string name="alert_delete_cost">¿Seguro que quieres eliminar este gasto?</string>

@@ -1,0 +1,296 @@
+[
+	{
+		"name": "Ski weekend",
+		"dudes": [
+			{
+				"id": 1,
+				"name": "Alice"
+			},
+			{
+				"id": 2,
+				"name": "Bob"
+			},
+			{
+				"id": 3,
+				"name": "Carol"
+			},
+			{
+				"id": 4,
+				"name": "David"
+			},
+			{
+				"id": 5,
+				"name": "Eva"
+			},
+			{
+				"id": 6,
+				"name": "Fred"
+			}
+		],
+		"costs": [
+			{
+				"name": "Bus",
+				"amount": 30.0,
+				"payer": 3,
+				"participants": [2,3,4]
+			},
+			{
+				"name": "Bus",
+				"amount": 10.0,
+				"payer": 1,
+				"participants": [1]
+			},
+			{
+				"name": "Bus",
+				"amount": 20.0,
+				"payer": 5,
+				"participants": [5,6]
+			},
+			{
+				"name": "Hotel",
+				"amount": 115.0,
+				"payer": 4,
+				"participants": [1,2,3,4,5,6]
+			},
+			{
+				"name": "Forfaits",
+				"amount": 60.0,
+				"payer": 2,
+				"participants": [1,2,3,4,5,6]
+			},
+			{
+				"name": "Breakfast",
+				"amount": 85.0,
+				"payer": 6,
+				"participants": [2,4,5,6]
+			},
+			{
+				"name": "Spa",
+				"amount": 60.0,
+				"payer": 5,
+				"participants": [1,3,5]
+			},
+			{
+				"name": "Coffees",
+				"amount": 15.0,
+				"payer": 2,
+				"participants": [1,2,3,4,5,6]
+			},
+			{
+				"name": "Sun glasses",
+				"amount": 20.0,
+				"payer": 2,
+				"participants": [2]
+			},
+			{
+				"name": "Beers",
+				"amount": 6.0,
+				"payer": 2,
+				"participants": [1,2]
+			},
+			{
+				"name": "Beers",
+				"amount": 20.0,
+				"payer": 5,
+				"participants": [1,3,4,5,6]
+			}
+		]
+	},
+	{
+		"name": "Sant Joan",
+		"dudes": [
+			{
+				"id": 1,
+				"name": "Angel"
+			},
+			{
+				"id": 2,
+				"name": "Clàudia"
+			},
+			{
+				"id": 3,
+				"name": "Jordi"
+			},
+			{
+				"id": 4,
+				"name": "Josep"
+			},
+			{
+				"id": 5,
+				"name": "Laura"
+			},
+			{
+				"id": 6,
+				"name": "Manel"
+			},
+			{
+				"id": 7,
+				"name": "Míriam"
+			},
+			{
+				"id": 8,
+				"name": "Pablo"
+			},
+			{
+				"id": 9,
+				"name": "Patri"
+			},
+			{
+				"id": 10,
+				"name": "Xavi"
+			}
+		],
+		"costs": [
+			{
+				"name": "peatge",
+				"amount": 1.26,
+				"payer": 6,
+				"participants": [1,3,4,5,6,7,9,10]
+			},
+			{
+				"name": "peatge",
+				"amount": 2.14,
+				"payer": 7,
+				"participants": [1,3,4,5,6,7,9,10]
+			},
+			{
+				"name": "camping",
+				"amount": 79.5,
+				"payer": 9,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "compra",
+				"amount": 9.48,
+				"payer": 9,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "camping",
+				"amount": 280.5,
+				"payer": 9,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "compra",
+				"amount": 33.88,
+				"payer": 6,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "tabac",
+				"amount": 4.35,
+				"payer": 3,
+				"participants": [6]
+			},
+			{
+				"name": "compra",
+				"amount": 46.61,
+				"payer": 6,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "alcohol",
+				"amount": 85.05,
+				"payer": 6,
+				"participants": [1,3,4,5,6,7,9]
+			},
+			{
+				"name": "lloguer cotxe",
+				"amount": 140.99,
+				"payer": 6,
+				"participants": [3,4,5,6,7,9,10]
+			},
+			{
+				"name": "birres",
+				"amount": 3.6,
+				"payer": 3,
+				"participants": [3,6]
+			},
+			{
+				"name": "birres",
+				"amount": 3.6,
+				"payer": 3,
+				"participants": [3,6]
+			},
+			{
+				"name": "birres",
+				"amount": 8.2,
+				"payer": 3,
+				"participants": [5,7,9]
+			},
+			{
+				"name": "birres",
+				"amount": 3.6,
+				"payer": 3,
+				"participants": [3,6]
+			},
+			{
+				"name": "peatge",
+				"amount": 5.48,
+				"payer": 1,
+				"participants": [1,3,4,5,6,7,9,10]
+			},
+			{
+				"name": "carn",
+				"amount": 52.17,
+				"payer": 6,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "aigua amb gas",
+				"amount": 1.4,
+				"payer": 3,
+				"participants": [9]
+			},
+			{
+				"name": "esmorzar",
+				"amount": 8.6,
+				"payer": 3,
+				"participants": [3,6]
+			},
+			{
+				"name": "aigua",
+				"amount": 10.0,
+				"payer": 3,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "patates",
+				"amount": 9.15,
+				"payer": 7,
+				"participants": [1,2,3,4,5,6,7,8,9,10]
+			},
+			{
+				"name": "coques",
+				"amount": 2.75,
+				"payer": 4,
+				"participants": [1,2,3,4,5,6,8,9,10]
+			},
+			{
+				"name": "birres",
+				"amount": 6.8,
+				"payer": 3,
+				"participants": [3,6]
+			},
+			{
+				"name": "gasolina",
+				"amount": 15.0,
+				"payer": 7,
+				"participants": [1,3,4,5,6,7,9,10]
+			},
+			{
+				"name": "sopar",
+				"amount": 73.0,
+				"payer": 5,
+				"participants": [1,2,3,4,5,6,8,10]
+			},
+			{
+				"name": "birres",
+				"amount": 6.6,
+				"payer": 3,
+				"participants": [3,6]
+			}
+		]
+	}
+]

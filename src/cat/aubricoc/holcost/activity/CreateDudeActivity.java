@@ -34,7 +34,7 @@ public class CreateDudeActivity extends Activity {
 				if (name == null || name.trim().length() == 0) {
 
 					Toast toast = Toast.makeText(CreateDudeActivity.this,
-							getText(R.string.error_name_required), 3);
+							getText(R.string.error_name_required), Toast.LENGTH_SHORT);
 					toast.show();
 
 				} else {
@@ -43,7 +43,7 @@ public class CreateDudeActivity extends Activity {
 
 					if (dudeService.existsDude(name, activeHolcost)) {
 						Toast toast = Toast.makeText(CreateDudeActivity.this,
-								getText(R.string.error_dude_duplicated), 3);
+								getText(R.string.error_dude_duplicated), Toast.LENGTH_SHORT);
 						toast.show();
 					} else {
 						dudeService.createDude(name, activeHolcost);

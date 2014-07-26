@@ -3,7 +3,7 @@ package cat.aubricoc.holcost.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,6 +14,7 @@ public class CostDao extends GenericDao<Cost> {
 
 	private static final String TABLE_NAME = "cost";
 	
+	@SuppressLint("SimpleDateFormat")
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	public CostDao(Context context) {

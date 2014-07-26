@@ -26,13 +26,12 @@
     <string name="cost_participants">Participants</string>
     <string name="cost_save">Save</string>
     <string name="list_cost_title">Costs</string>
-    <string name="payed_costs">Payed costs</string>
-    <string name="view_payed_costs">View payed costs</string>
+    <string name="payed_costs">Paid costs</string>
+    <string name="view_payed_costs">View paid costs</string>
     <string name="participant_costs">Participant costs</string>
     <string name="view_participant_costs">View participant costs</string>
     <string name="debt_spent">Spent:</string>
-    <string name="debt_payed">Payed:</string>
-    <string name="debt_debt">Debt:</string>
+    <string name="debt_payed">Paid:</string>
     <string name="alert_delete_holcost">Are you sure you want to delete this holcost?</string>
     <string name="alert_delete_dude">Are you sure you want to delete this dude?</string>
     <string name="alert_delete_cost">Are you sure you want to delete this cost?</string>
@@ -42,6 +41,6 @@
     <string name="error_amount_required">Amount is required</string>
     <string name="error_participant_required">One participant is required</string>
     <string name="error_dude_duplicated">Dude duplicated</string>
-    <string name="error_dude_have_payed_costs">Dude have payed costs</string>
+    <string name="error_dude_have_payed_costs">Dude has paid costs</string>
 
 </resources>

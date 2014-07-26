@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import cat.aubricoc.holcost.R;
+import cat.aubricoc.holcost.db.DataLoader;
 import cat.aubricoc.holcost.service.HolcostService;
 
 public class CreateHolcostActivity extends Activity {
@@ -32,9 +33,12 @@ public class CreateHolcostActivity extends Activity {
 				if (name == null || name.trim().length() == 0) {
 
 					Toast toast = Toast.makeText(CreateHolcostActivity.this,
-							getText(R.string.error_name_required), 3);
+							getText(R.string.error_name_required), Toast.LENGTH_SHORT);
 					toast.show();
 
+				} else if (name.equals("JSON2DB")) {
+					new DataLoader(CreateHolcostActivity.this).loadData();
+					
 				} else {
 
 					holcostService.createHolcost(name);
