@@ -45,7 +45,7 @@ public class CreateHolcostActivity extends Activity {
 
 			show(R.id.listHolcostTitle);
 			show(R.id.listHolcost);
-			setList(R.id.listHolcost, holcosts, R.layout.list_line);
+			setList(R.id.listHolcost, holcosts, R.layout.list_item);
 			onItemClick(R.id.listHolcost, new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {

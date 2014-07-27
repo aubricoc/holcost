@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/listCostTitle"
-        style="@style/title_text"
-        android:text="@string/list_cost_title" />
-
     <ListView
         android:id="@+id/listCost"
+        style="@style/list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ListView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

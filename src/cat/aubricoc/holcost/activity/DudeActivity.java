@@ -12,11 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import cat.aubricoc.holcost.R;
 import cat.aubricoc.holcost.model.Cost;
 import cat.aubricoc.holcost.model.Debt;
@@ -30,17 +25,15 @@ public class DudeActivity extends Activity {
 
 	@Override
 	public void onCreate() {
-		Long dudeId = getIntent().getLongExtra("dudeId", -1);
+		
+		backButtonInActionBar = true;
+		
+		Long dudeId = getIntent().getLongExtra(Constants.EXTRA_DUDE_ID, -1);
 
 		final Dude dude = DudeService.getInstance().getDudeById(dudeId);
 		Debt debt = DebtService.getInstance().getDudeDebt(dude);
 
-		TextView title = (TextView) findViewById(R.id.dudeTitle);
-		title.setText(dude.getName());
-
-		TextView debtDebt = (TextView) findViewById(R.id.debtDebt);
-		TextView debtSpent = (TextView) findViewById(R.id.debtSpent);
-		TextView debtPayed = (TextView) findViewById(R.id.debtPayed);
+		setTitle(dude.getName());
 
 		String debtText = getText(
 				(debt.getDebtAmount().doubleValue() > 0) ? R.string.has_debt
@@ -48,81 +41,72 @@ public class DudeActivity extends Activity {
 		debtText = debtText.replaceAll("\\{0\\}", debt.getDude().getName());
 		debtText = debtText.replaceAll("\\{1\\}",
 				String.valueOf(Math.abs(debt.getDebtAmount())));
-		debtDebt.setText(debtText);
-		debtPayed.setText(getText(R.string.debt_payed) + " "
+		setText(R.id.debtDebt, debtText);
+		setText(R.id.debtPayed, getText(R.string.debt_payed) + " "
 				+ debt.getPayedAmount());
-		debtSpent.setText(getText(R.string.debt_spent) + " "
+		setText(R.id.debtSpent, getText(R.string.debt_spent) + " "
 				+ debt.getSpentAmount());
 
 		final List<Cost> payedCosts = CostService.getInstance().getCostsByPayer(dudeId);
-		final ListView payedCostsList = (ListView) findViewById(R.id.listPayedCosts);
-		if (!payedCosts.isEmpty()) {
-			payedCostsList.setAdapter(new ArrayAdapter<Cost>(this,
-					R.layout.list_line, payedCosts));
-			payedCostsList.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int position, long arg3) {
+		setList(R.id.listPayedCosts, payedCosts,
+				R.layout.list_item);
+		onItemClick(R.id.listPayedCosts, new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
 
-					Intent intent = new Intent(DudeActivity.this,
-							CostActivity.class);
-					intent.putExtra(Constants.EXTRA_COST_ID, payedCosts.get(position).getId());
-					startActivityForResult(intent, 0);
-				}
-			});
-		}
+				Intent intent = newIntent(
+						CostActivity.class);
+				intent.putExtra(Constants.EXTRA_COST_ID, payedCosts.get(position).getId());
+				goToForResult(intent, 0);
+			}
+		});
 
 		final List<Cost> participantCosts = CostService.getInstance()
 				.getCostsByParticipant(dudeId);
-		final ListView participantCostsList = (ListView) findViewById(R.id.listParticipantCosts);
-		if (!participantCosts.isEmpty()) {
-			participantCostsList.setAdapter(new ArrayAdapter<Cost>(this,
-					R.layout.list_line, participantCosts));
-			participantCostsList
-					.setOnItemClickListener(new OnItemClickListener() {
+			setList(R.id.listParticipantCosts, participantCosts,
+					R.layout.list_item);
+			onItemClick(R.id.listParticipantCosts, new OnItemClickListener() {
 						public void onItemClick(AdapterView<?> arg0, View arg1,
 								int position, long arg3) {
 
-							Intent intent = new Intent(DudeActivity.this,
+							Intent intent = newIntent(
 									CostActivity.class);
 							intent.putExtra(Constants.EXTRA_COST_ID,
 									participantCosts.get(position).getId());
-							startActivityForResult(intent, 0);
+							goToForResult(intent, 0);
 						}
 					});
-		}
 
-		final TextView payedsLabel = (TextView) findViewById(R.id.payedCostsLabel);
-		final TextView participantsLabel = (TextView) findViewById(R.id.participantCostsLabel);
 		if (!payedCosts.isEmpty()) {
-			payedsLabel.setVisibility(View.VISIBLE);
-			payedCostsList.setVisibility(View.VISIBLE);
+			show(R.id.payedCostsLabel);
+			show(R.id.listPayedCosts);
 		} else if (!participantCosts.isEmpty()) {
-			participantsLabel.setVisibility(View.VISIBLE);
-			participantCostsList.setVisibility(View.VISIBLE);
+			show(R.id.participantCostsLabel);
+			show(R.id.listParticipantCosts);
 		}
 
 		if (!payedCosts.isEmpty() && !participantCosts.isEmpty()) {
-			final Button showPayedButton = (Button) findViewById(R.id.viewPayedCosts);
-			final Button showParticipantButton = (Button) findViewById(R.id.viewParticipantCosts);
-			showParticipantButton.setVisibility(View.VISIBLE);
-			showPayedButton.setOnClickListener(new OnClickListener() {
+			show(R.id.viewParticipantCosts);
+			onClick(R.id.viewPayedCosts, new OnClickListener() {
 				public void onClick(View v) {
-					participantsLabel.setVisibility(View.GONE);
-					participantCostsList.setVisibility(View.GONE);
-					showParticipantButton.setVisibility(View.VISIBLE);
-					payedsLabel.setVisibility(View.VISIBLE);
-					payedCostsList.setVisibility(View.VISIBLE);
-					showPayedButton.setVisibility(View.GONE);
+					show(R.id.payedCostsLabel);
+					show(R.id.listPayedCosts);
+					hide(R.id.participantCostsLabel);
+					hide(R.id.listParticipantCosts);
+					
+					hide(R.id.viewPayedCosts);
+					show(R.id.viewParticipantCosts);
 				}
 			});
-			showParticipantButton.setOnClickListener(new OnClickListener() {
+			onClick(R.id.viewParticipantCosts, new OnClickListener() {
 				public void onClick(View v) {
-					payedsLabel.setVisibility(View.GONE);
-					payedCostsList.setVisibility(View.GONE);
-					showPayedButton.setVisibility(View.VISIBLE);
-					participantsLabel.setVisibility(View.VISIBLE);
-					participantCostsList.setVisibility(View.VISIBLE);
-					showParticipantButton.setVisibility(View.GONE);
+					hide(R.id.payedCostsLabel);
+					hide(R.id.listPayedCosts);
+					show(R.id.participantCostsLabel);
+					show(R.id.listParticipantCosts);
+					
+					show(R.id.viewPayedCosts);
+					hide(R.id.viewParticipantCosts);
 				}
 			});
 		}
@@ -137,13 +121,11 @@ public class DudeActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		final Long dudeId = getIntent().getLongExtra("dudeId", -1);
+		final Long dudeId = getIntent().getLongExtra(Constants.EXTRA_DUDE_ID, -1);
 		switch (item.getItemId()) {
 		case R.id.deleteDudeMenu:
 			if (DudeService.getInstance().dudeHavePayedCosts(dudeId)) {
-				Toast toast = Toast.makeText(this,
-						getText(R.string.error_dude_have_payed_costs), Toast.LENGTH_SHORT);
-				toast.show();
+				showToast(R.string.error_dude_have_payed_costs);
 				return false;
 			}
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -155,7 +137,7 @@ public class DudeActivity extends Activity {
 										int id) {
 									DudeService.getInstance().deleteDude(dudeId);
 									setResult(RESULT_OK);
-									finish();
+									back();
 								}
 							})
 					.setNegativeButton(R.string.alert_no,
@@ -177,13 +159,12 @@ public class DudeActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			setResult(resultCode);
-			finish();
-			startActivity(getIntent());
+			refreshOnBack();
 		}
 	}
 
 	@Override
 	protected int getLayoutId() {
-		return R.layout.dude;
+		return R.layout.activity_dude;
 	}
 }

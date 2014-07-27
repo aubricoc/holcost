@@ -14,7 +14,6 @@
     <string name="create_holcost_title">Crear un nuevo holcost</string>
     <string name="holcost_name">Nombre</string>
     <string name="holcost_save">Guardar</string>
-    <string name="holcost_list">Listar holcosts existentes</string>
     <string name="list_holcost_title">o selecciona uno existente</string>
     <string name="create_dude_title">Añadir un nuevo amigo</string>
     <string name="dude_name">Nombre</string>
@@ -23,8 +22,6 @@
     <string name="modify_cost_title">Modificar gasto</string>
     <string name="cost_name">Nombre</string>
     <string name="cost_amount">Importe</string>
-    <string name="cost_payer">Pagador</string>
-    <string name="cost_participants">Participantes</string>
     <string name="cost_save">Guardar</string>
     <string name="list_cost_title">Gastos</string>
     <string name="payed_costs">Gastos pagados</string>
@@ -42,11 +39,13 @@
     <string name="error_amount_required">El importe es obligatorio</string>
     <string name="error_participant_required">Es obligatorio al menos un participante</string>
     <string name="error_dude_duplicated">Amigo duplicado</string>
-    <string name="error_dude_have_payed_costs">El amigo tiene gastos pagados</string>
+    <string name="error_dude_have_payed_costs">No se puede borrar mientras tenga gastos pagados</string>
     <string name="create_holcost_insert_name">Introduce el nombre del nuevo holcost</string>
     <string name="create_dude_insert_name">Introduce el nombre del amigo</string>
     <string name="create_cost_insert_data">Introduce los datos del gasto</string>
     <string name="create_cost_select_payer">Selecciona quien pagó</string>
     <string name="create_cost_select_participants">Selecciona los que participan</string>
+    <string name="calculating_debts">Calculando deudas&#8230;</string>
+    <string name="first_step">El primer paso es registrar un amigo</string>
 
 </resources>

@@ -14,7 +14,6 @@
     <string name="create_holcost_title">Crear un nou holcost</string>
     <string name="holcost_name">Nom</string>
     <string name="holcost_save">Guardar</string>
-    <string name="holcost_list">Llistar holcosts existents</string>
     <string name="list_holcost_title">o selecciona un d\'existent</string>
     <string name="create_dude_title">Afegir un nou amic</string>
     <string name="dude_name">Nom</string>
@@ -23,8 +22,6 @@
     <string name="modify_cost_title">Modificar despesa</string>
     <string name="cost_name">Nom</string>
     <string name="cost_amount">Import</string>
-    <string name="cost_payer">Pagador</string>
-    <string name="cost_participants">Participants</string>
     <string name="cost_save">Guardar</string>
     <string name="list_cost_title">Despeses</string>
     <string name="payed_costs">Despeses pagades</string>
@@ -42,11 +39,13 @@
     <string name="error_amount_required">L\'import és obligatori</string>
     <string name="error_participant_required">És obligatori almenys un participant</string>
     <string name="error_dude_duplicated">Amic duplicat</string>
-    <string name="error_dude_have_payed_costs">L\'amic té despeses pagades</string>
+    <string name="error_dude_have_payed_costs">No es pot esborrar mentre tingui despeses pagades</string>
     <string name="create_holcost_insert_name">Introdueix el nom del nou holcost</string>
     <string name="create_dude_insert_name">Introdueix el nom de l\'amic</string>
     <string name="create_cost_insert_data">Introdueix les dades de la despesa</string>
     <string name="create_cost_select_payer">Selecciona qui ha pagat</string>
     <string name="create_cost_select_participants">Selecciona els que participen</string>
+    <string name="calculating_debts">Calculant deutes&#8230;</string>
+    <string name="first_step">El prime pas és registrar un amic</string>
 
 </resources>

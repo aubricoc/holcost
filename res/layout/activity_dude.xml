@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/activity_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/debtDebt"
+            style="@style/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/debtPayed"
+            style="@style/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/debtSpent"
+            style="@style/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/payedCostsLabel"
+            style="@style/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/payed_costs"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/participantCostsLabel"
+            style="@style/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/participant_costs"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/listPayedCosts"
+            style="@style/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/listParticipantCosts"
+            style="@style/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/activity_background_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/viewPayedCosts"
+            style="@style/button_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_payed_costs"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/viewParticipantCosts"
+            style="@style/button_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_participant_costs"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

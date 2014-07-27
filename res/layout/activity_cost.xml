@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/activity_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <ScrollView
+        style="@style/activity_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
@@ -67,12 +67,19 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/createCostButton"
-        style="@style/button"
+    <LinearLayout
+        style="@style/activity_background_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_content_save"
-        android:text="@string/cost_save" />
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/createCostButton"
+            style="@style/button_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_content_save"
+            android:text="@string/cost_save" />
+    </LinearLayout>
 
 </LinearLayout>

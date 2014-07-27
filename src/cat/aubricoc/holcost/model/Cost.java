@@ -94,6 +94,6 @@ public class Cost {
 
 	@Override
 	public String toString() {
-		return this.name + " ::: " + this.amount;
+		return this.name + " - " + this.amount;
 	}
 }

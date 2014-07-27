@@ -14,7 +14,6 @@
     <string name="create_holcost_title">Create new holcost</string>
     <string name="holcost_name">Name</string>
     <string name="holcost_save">Save</string>
-    <string name="holcost_list">List existing holcosts</string>
     <string name="list_holcost_title">or select an existing one</string>
     <string name="create_dude_title">Add new dude</string>
     <string name="dude_name">Name</string>
@@ -23,8 +22,6 @@
     <string name="modify_cost_title">Modify cost</string>
     <string name="cost_name">Name</string>
     <string name="cost_amount">Amount</string>
-    <string name="cost_payer">Payer</string>
-    <string name="cost_participants">Participants</string>
     <string name="cost_save">Save</string>
     <string name="list_cost_title">Costs</string>
     <string name="payed_costs">Paid costs</string>
@@ -42,11 +39,13 @@
     <string name="error_amount_required">Amount is required</string>
     <string name="error_participant_required">One participant is required</string>
     <string name="error_dude_duplicated">Dude duplicated</string>
-    <string name="error_dude_have_payed_costs">Dude has paid costs</string>
+    <string name="error_dude_have_payed_costs">There are costs paid by him, cannot be deleted</string>
     <string name="create_holcost_insert_name">Insert the name of new holcost</string>
     <string name="create_dude_insert_name">Insert the name of dude</string>
     <string name="create_cost_insert_data">Insert cost data</string>
     <string name="create_cost_select_payer">Select who paid</string>
     <string name="create_cost_select_participants">Select who participates</string>
+    <string name="calculating_debts">Calculating debts&#8230;</string>
+    <string name="first_step">First step is register a dude</string>
 
 </resources>

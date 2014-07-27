@@ -3,6 +3,8 @@
 
     <item
         android:id="@+id/deleteCostMenu"
+        android:icon="@drawable/ic_action_content_discard"
+        android:showAsAction="ifRoom"
         android:title="@string/cost_delete"/>
 
 </menu>

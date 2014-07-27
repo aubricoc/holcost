@@ -3,6 +3,8 @@
 
     <item
         android:id="@+id/deleteDudeMenu"
+        android:icon="@drawable/ic_action_content_discard"
+        android:showAsAction="ifRoom"
         android:title="@string/dude_delete"/>
 
 </menu>
