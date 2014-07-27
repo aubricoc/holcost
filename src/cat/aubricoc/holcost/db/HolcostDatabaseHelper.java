@@ -20,12 +20,6 @@ public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-//		Log.i(HolcostDatabaseHelper.class.getName(), "CREATE HOLCOST DB");
-//		sqLiteDatabase.execSQL("create table holcost (id integer primary key autoincrement, name text not null, active integer not null);");
-//		sqLiteDatabase.execSQL("create table dude (id integer primary key autoincrement, name text not null, holcost integer not null, FOREIGN KEY(holcost) REFERENCES holcost(id) ON DELETE CASCADE);");
-//		sqLiteDatabase.execSQL("create table cost (id integer primary key autoincrement, name text not null, amount real not null, date text not null, payer integer not null, holcost integer not null, FOREIGN KEY(payer) REFERENCES dude(id) ON DELETE CASCADE, FOREIGN KEY(holcost) REFERENCES holcost(id) ON DELETE CASCADE);");
-//		sqLiteDatabase.execSQL("create table dude_cost (dude integer, cost integer, PRIMARY KEY (dude, cost), FOREIGN KEY(dude) REFERENCES dude(id) ON DELETE CASCADE, FOREIGN KEY(cost) REFERENCES cost(id) ON DELETE CASCADE);");
-		
 		Log.i(Constants.PROJECT_NAME, "Create DB...");
 
 		List<String> createTables = DatabaseReflection.getInstance()

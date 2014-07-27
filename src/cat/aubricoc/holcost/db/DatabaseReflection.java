@@ -39,7 +39,7 @@ public class DatabaseReflection {
 			}
 			sql += fieldInfo.getColumnName() + " "
 					+ fieldInfo.getDatabaseType();
-			if (fieldInfo.isPK()) {
+			if (fieldInfo.isPK() && !entityInfo.isCompositePK()) {
 				sql += " primary key";
 			} else if (!fieldInfo.isNullable()) {
 				sql += " not null";
