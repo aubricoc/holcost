@@ -2,11 +2,9 @@ package cat.aubricoc.holcost.activity;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,20 +27,12 @@ import cat.aubricoc.holcost.service.DudeService;
 
 public class DudeActivity extends Activity {
 
-	private DudeService dudeService = new DudeService(this);
-	private CostService costService = new CostService(this);
-	private DebtService debtService = new DebtService(this);
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.dude);
-
+	public void onCreate() {
 		Long dudeId = getIntent().getLongExtra("dudeId", -1);
 
-		final Dude dude = dudeService.getDudeById(dudeId);
-		Debt debt = debtService.getDudeDebt(dude);
+		final Dude dude = DudeService.getInstance().getDudeById(dudeId);
+		Debt debt = DebtService.getInstance().getDudeDebt(dude);
 
 		TextView title = (TextView) findViewById(R.id.dudeTitle);
 		title.setText(dude.getName());
@@ -63,7 +53,7 @@ public class DudeActivity extends Activity {
 		debtSpent.setText(getText(R.string.debt_spent) + " "
 				+ debt.getSpentAmount());
 
-		final List<Cost> payedCosts = costService.getCostsByPayer(dudeId);
+		final List<Cost> payedCosts = CostService.getInstance().getCostsByPayer(dudeId);
 		final ListView payedCostsList = (ListView) findViewById(R.id.listPayedCosts);
 		if (!payedCosts.isEmpty()) {
 			payedCostsList.setAdapter(new ArrayAdapter<Cost>(this,
@@ -80,7 +70,7 @@ public class DudeActivity extends Activity {
 			});
 		}
 
-		final List<Cost> participantCosts = costService
+		final List<Cost> participantCosts = CostService.getInstance()
 				.getCostsByParticipant(dudeId);
 		final ListView participantCostsList = (ListView) findViewById(R.id.listParticipantCosts);
 		if (!participantCosts.isEmpty()) {
@@ -149,7 +139,7 @@ public class DudeActivity extends Activity {
 		final Long dudeId = getIntent().getLongExtra("dudeId", -1);
 		switch (item.getItemId()) {
 		case R.id.deleteDudeMenu:
-			if (dudeService.dudeHavePayedCosts(dudeId)) {
+			if (DudeService.getInstance().dudeHavePayedCosts(dudeId)) {
 				Toast toast = Toast.makeText(this,
 						getText(R.string.error_dude_have_payed_costs), Toast.LENGTH_SHORT);
 				toast.show();
@@ -162,7 +152,7 @@ public class DudeActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									dudeService.deleteDude(dudeId);
+									DudeService.getInstance().deleteDude(dudeId);
 									setResult(RESULT_OK);
 									finish();
 								}
@@ -190,5 +180,10 @@ public class DudeActivity extends Activity {
 			finish();
 			startActivity(getIntent());
 		}
+	}
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.dude;
 	}
 }

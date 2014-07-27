@@ -3,11 +3,9 @@ package cat.aubricoc.holcost.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import cat.aubricoc.holcost.R;
 import cat.aubricoc.holcost.model.Debt;
 import cat.aubricoc.holcost.model.Dude;
@@ -30,33 +26,21 @@ import cat.aubricoc.holcost.view.DebtListAdapter;
 
 public class HolcostActivity extends Activity {
 
-	private HolcostService holcostService = new HolcostService(this);
-	private DudeService dudeService = new DudeService(this);
-	private CostService costService = new CostService(this);
-	private DebtService debtService = new DebtService(this);
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		Holcost activeHolcost = holcostService.getActiveHolcost();
+	public void onCreate() {
+		Holcost activeHolcost = HolcostService.getInstance().getActiveHolcost();
 
 		if (activeHolcost == null) {
-			Intent intent = new Intent(this, CreateHolcostActivity.class);
-			startActivity(intent);
-
-			finish();
+			goToAndFinish(CreateHolcostActivity.class);
 		} else {
 
-			setContentView(R.layout.holcost);
+			setTitle(activeHolcost.getName());
 
-			TextView title = (TextView) findViewById(R.id.holcostTitle);
-			title.setText(activeHolcost.getName());
-
-			List<Dude> dudes = dudeService.getDudesByHolcost(activeHolcost);
+			List<Dude> dudes = DudeService.getInstance().getDudesByHolcost(
+					activeHolcost);
 			final List<Debt> debts = new ArrayList<Debt>();
 			for (Dude dude : dudes) {
-				debts.add(debtService.getDudeDebt(dude));
+				debts.add(DebtService.getInstance().getDudeDebt(dude));
 			}
 
 			ListView listView = (ListView) findViewById(R.id.listDudes);
@@ -78,26 +62,27 @@ public class HolcostActivity extends Activity {
 				}
 			});
 
-			if (!dudes.isEmpty()) {
-				Button costButton = (Button) findViewById(R.id.createCost);
-				costButton.setVisibility(View.VISIBLE);
-				costButton.setOnClickListener(new OnClickListener() {
+			if (dudes.isEmpty()) {
+				show(R.id.createDude);
+				onClick(R.id.createDude, new OnClickListener() {
 					public void onClick(View v) {
-						Intent intent = new Intent(HolcostActivity.this,
-								CostActivity.class);
-						startActivityForResult(intent, 0);
+						goToForResult(CreateDudeActivity.class, 0);
+					}
+				});
+			} else {
+				show(R.id.createCost);
+				onClick(R.id.createCost, new OnClickListener() {
+					public void onClick(View v) {
+						goToForResult(CostActivity.class, 0);
 					}
 				});
 			}
 
-			if (costService.existsCosts(activeHolcost)) {
-				Button listCostButton = (Button) findViewById(R.id.listCostButton);
-				listCostButton.setVisibility(View.VISIBLE);
-				listCostButton.setOnClickListener(new OnClickListener() {
+			if (CostService.getInstance().existsCosts(activeHolcost)) {
+				show(R.id.listCostButton);
+				onClick(R.id.listCostButton, new OnClickListener() {
 					public void onClick(View v) {
-						Intent intent = new Intent(HolcostActivity.this,
-								ListCostActivity.class);
-						startActivityForResult(intent, 0);
+						goToForResult(ListCostActivity.class, 0);
 					}
 				});
 			}
@@ -113,17 +98,10 @@ public class HolcostActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = null;
-
 		switch (item.getItemId()) {
 		case R.id.closeHolcostMenu:
-			holcostService.closeActiveHolcost();
-
-			intent = new Intent(HolcostActivity.this,
-					CreateHolcostActivity.class);
-			startActivity(intent);
-
-			finish();
+			HolcostService.getInstance().closeActiveHolcost();
+			goToAndFinish(CreateHolcostActivity.class);
 			return true;
 		case R.id.deleteHolcostMenu:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -133,14 +111,12 @@ public class HolcostActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									holcostService.deleteActiveHolcost();
+									HolcostService.getInstance()
+											.deleteActiveHolcost();
 
-									Intent intent = new Intent(
-											HolcostActivity.this,
-											CreateHolcostActivity.class);
-									startActivity(intent);
-
-									finish();
+									HolcostService.getInstance()
+											.closeActiveHolcost();
+									goToAndFinish(CreateHolcostActivity.class);
 								}
 							})
 					.setNegativeButton(R.string.alert_no,
@@ -154,9 +130,7 @@ public class HolcostActivity extends Activity {
 			alert.show();
 			return true;
 		case R.id.createDudeMenu:
-			intent = new Intent(HolcostActivity.this, CreateDudeActivity.class);
-			startActivityForResult(intent, 0);
-
+			goToForResult(CreateDudeActivity.class, 0);
 			return true;
 		default:
 			return false;
@@ -166,8 +140,12 @@ public class HolcostActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			finish();
-			startActivity(getIntent());
+			refresh();
 		}
+	}
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.activity_holcost;
 	}
 }

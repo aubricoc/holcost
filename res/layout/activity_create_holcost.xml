@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_holcost_insert_name" />
+
+    <EditText
+        android:id="@+id/holcostName"
+        style="@style/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/holcost_name"
+        android:inputType="text"
+        android:maxLength="255" />
+
+    <Button
+        android:id="@+id/createHolcostButton"
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_content_save"
+        android:text="@string/holcost_save" />
+
+    <TextView
+        android:id="@+id/listHolcostTitle"
+        style="@style/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/list_holcost_title"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listHolcost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+    </ListView>
+
+</LinearLayout>

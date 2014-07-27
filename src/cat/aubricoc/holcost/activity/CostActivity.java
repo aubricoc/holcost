@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,21 +30,15 @@ import cat.aubricoc.holcost.service.HolcostService;
 
 public class CostActivity extends Activity {
 
-	private HolcostService holcostService = new HolcostService(this);
-	private DudeService dudeService = new DudeService(this);
-	private CostService costService = new CostService(this);
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.cost);
+	public void onCreate() {
 
 		Long costId = getIntent().getLongExtra("costId", -1);
 
-		Holcost activeHolcost = holcostService.getActiveHolcost();
-		List<Dude> dudes = dudeService.getDudesByHolcost(activeHolcost);
-		final Cost cost = costService.getCostById(costId);
+		Holcost activeHolcost = HolcostService.getInstance().getActiveHolcost();
+		List<Dude> dudes = DudeService.getInstance().getDudesByHolcost(
+				activeHolcost);
+		final Cost cost = CostService.getInstance().getCostById(costId);
 
 		final EditText nameInput = (EditText) findViewById(R.id.costName);
 		final EditText amountInput = (EditText) findViewById(R.id.costAmount);
@@ -71,7 +63,7 @@ public class CostActivity extends Activity {
 
 		List<Dude> participants = null;
 		if (cost != null) {
-			participants = costService.getParticipants(cost);
+			participants = CostService.getInstance().getParticipants(cost);
 		}
 
 		LinearLayout participantsContainer = (LinearLayout) findViewById(R.id.costParticipantsContainer);
@@ -105,7 +97,8 @@ public class CostActivity extends Activity {
 				if (name == null || name.trim().length() == 0) {
 
 					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_name_required), Toast.LENGTH_SHORT);
+							getText(R.string.error_name_required),
+							Toast.LENGTH_SHORT);
 					toast.show();
 					return;
 				}
@@ -115,7 +108,8 @@ public class CostActivity extends Activity {
 				if (amountString == null || amountString.trim().length() == 0) {
 
 					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_amount_required), Toast.LENGTH_SHORT);
+							getText(R.string.error_amount_required),
+							Toast.LENGTH_SHORT);
 					toast.show();
 					return;
 				}
@@ -132,19 +126,21 @@ public class CostActivity extends Activity {
 
 				if (participants.isEmpty()) {
 					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_participant_required), Toast.LENGTH_SHORT);
+							getText(R.string.error_participant_required),
+							Toast.LENGTH_SHORT);
 					toast.show();
 					return;
 				}
 
 				if (cost == null) {
-					Holcost activeHolcost = holcostService.getActiveHolcost();
+					Holcost activeHolcost = HolcostService.getInstance()
+							.getActiveHolcost();
 
-					costService.createCost(name, amount, payer, participants,
-							activeHolcost);
+					CostService.getInstance().createCost(name, amount, payer,
+							participants, activeHolcost);
 				} else {
-					costService.updateCost(cost, name, amount, payer,
-							participants);
+					CostService.getInstance().updateCost(cost, name, amount,
+							payer, participants);
 				}
 				setResult(RESULT_OK);
 				finish();
@@ -175,7 +171,8 @@ public class CostActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									costService.deleteCost(costId);
+									CostService.getInstance()
+											.deleteCost(costId);
 									setResult(RESULT_OK);
 									finish();
 								}
@@ -194,5 +191,10 @@ public class CostActivity extends Activity {
 		default:
 			return false;
 		}
+	}
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.cost;
 	}
 }

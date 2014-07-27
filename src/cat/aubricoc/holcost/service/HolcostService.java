@@ -2,20 +2,23 @@ package cat.aubricoc.holcost.service;
 
 import java.util.List;
 
-import android.content.Context;
 import cat.aubricoc.holcost.dao.HolcostDao;
 import cat.aubricoc.holcost.model.Holcost;
 
 public class HolcostService {
 
-	private HolcostDao holcostDao;
+	private static final HolcostService INSTANCE = new HolcostService();
 
-	public HolcostService(Context context) {
-		holcostDao = new HolcostDao(context);
+	private HolcostService() {
+		super();
+	}
+
+	public static HolcostService getInstance() {
+		return INSTANCE;
 	}
 
 	public Holcost getActiveHolcost() {
-		return holcostDao.getActiveHolcost();
+		return HolcostDao.getInstance().getActiveHolcost();
 	}
 
 	public void createHolcost(String name) {
@@ -26,7 +29,7 @@ public class HolcostService {
 		holcost.setName(name);
 		holcost.setActive(true);
 
-		holcostDao.create(holcost);
+		HolcostDao.getInstance().create(holcost);
 	}
 
 	public void closeActiveHolcost() {
@@ -38,11 +41,11 @@ public class HolcostService {
 
 	public void closeHolcost(Holcost holcost) {
 		holcost.setActive(false);
-		holcostDao.update(holcost);
+		HolcostDao.getInstance().update(holcost);
 	}
 
 	public List<Holcost> getAllHolcosts() {
-		return holcostDao.getAll();
+		return HolcostDao.getInstance().getAll();
 	}
 
 	public void openHolcost(Long id) {
@@ -51,13 +54,11 @@ public class HolcostService {
 
 	public void openHolcost(Holcost holcost) {
 		holcost.setActive(true);
-		holcostDao.update(holcost);
+		HolcostDao.getInstance().update(holcost);
 	}
 
 	public Holcost getHolcostById(Long id) {
-		Holcost holcost = new Holcost();
-		holcost.setId(id);
-		return holcostDao.getById(holcost);
+		return HolcostDao.getInstance().getById(id);
 	}
 
 	public boolean existsHolcosts() {
@@ -69,6 +70,6 @@ public class HolcostService {
 	}
 
 	public void deleteHolcost(Holcost holcost) {
-		holcostDao.delete(holcost);
+		HolcostDao.getInstance().delete(holcost);
 	}
 }

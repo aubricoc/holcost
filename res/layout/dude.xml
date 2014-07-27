@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
         android:orientation="vertical"
@@ -14,58 +14,58 @@
 
         <TextView
             android:id="@+id/dudeTitle"
-            style="@style/TitleText" />
+            style="@style/title_text" />
 
         <TextView
             android:id="@+id/debtDebt"
-            style="@style/InfoText" />
+            style="@style/info_text" />
 
         <TextView
             android:id="@+id/debtPayed"
-            style="@style/InfoText" />
+            style="@style/info_text" />
 
         <TextView
             android:id="@+id/debtSpent"
-            style="@style/InfoText" />
+            style="@style/info_text" />
 
         <Button
             android:id="@+id/viewPayedCosts"
-            style="@style/ButtonText"
-            android:background="@drawable/button"
+            style="@style/button"
+            android:background="@drawable/background_button"
             android:text="@string/view_payed_costs"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/viewParticipantCosts"
-            style="@style/ButtonText"
-            android:background="@drawable/button"
+            style="@style/button"
+            android:background="@drawable/background_button"
             android:text="@string/view_participant_costs"
             android:visibility="gone" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/payedCostsLabel"
-        style="@style/InfoText"
+        style="@style/info_text"
         android:text="@string/payed_costs"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/participantCostsLabel"
-        style="@style/InfoText"
+        style="@style/info_text"
         android:text="@string/participant_costs"
         android:visibility="gone" />
 
     <ListView
         android:id="@+id/listPayedCosts"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone" >
     </ListView>
 
     <ListView
         android:id="@+id/listParticipantCosts"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone" >
     </ListView>
 

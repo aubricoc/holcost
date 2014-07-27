@@ -3,20 +3,37 @@ package cat.aubricoc.holcost.model;
 import java.util.Date;
 import java.util.List;
 
+import cat.aubricoc.holcost.db.enums.Column;
+import cat.aubricoc.holcost.db.enums.Entity;
+import cat.aubricoc.holcost.db.enums.GeneratedValue;
+import cat.aubricoc.holcost.db.enums.Id;
+import cat.aubricoc.holcost.db.enums.OrderBy;
+import cat.aubricoc.holcost.db.enums.Transient;
+
+@Entity
 public class Cost {
 
+	@Id
+	@GeneratedValue
 	private Long id;
-	
+
+	@Column(nullable = false)
 	private String name;
-	
+
+	@Column(nullable = false)
 	private Double amount;
-	
+
+	@Column(nullable = false)
+	@OrderBy
 	private Date date;
-	
+
+	@Column(nullable = false)
 	private Dude payer;
-	
-	private Long holcostId;
-	
+
+	@Column(nullable = false)
+	private Holcost holcost;
+
+	@Transient
 	private List<Dude> participants;
 
 	public Long getId() {
@@ -59,14 +76,14 @@ public class Cost {
 		this.payer = payer;
 	}
 
-	public Long getHolcostId() {
-		return holcostId;
+	public Holcost getHolcost() {
+		return holcost;
 	}
 
-	public void setHolcostId(Long holcostId) {
-		this.holcostId = holcostId;
+	public void setHolcost(Holcost holcost) {
+		this.holcost = holcost;
 	}
-	
+
 	public List<Dude> getParticipants() {
 		return participants;
 	}

@@ -12,10 +12,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 import cat.aubricoc.holcost.R;
+import cat.aubricoc.holcost.activity.Activity;
 import cat.aubricoc.holcost.dao.DudeDao;
 import cat.aubricoc.holcost.dao.HolcostDao;
 import cat.aubricoc.holcost.model.Dude;
@@ -24,30 +24,25 @@ import cat.aubricoc.holcost.service.CostService;
 
 public class DataLoader {
 
-	private Context context;
+	private static final DataLoader INSTANCE = new DataLoader();
 
-	private HolcostDao holcostDao;
+	private DataLoader() {
+		super();
+	}
 
-	private DudeDao dudeDao;
-
-	private CostService costService;
-
-	public DataLoader(Context context) {
-		this.context = context;
-		this.holcostDao = new HolcostDao(context);
-		this.dudeDao = new DudeDao(context);
-		this.costService = new CostService(context);
+	public static DataLoader getInstance() {
+		return INSTANCE;
 	}
 
 	public void loadData() {
 
-		if (!holcostDao.getAll().isEmpty()) {
+		if (!HolcostDao.getInstance().getAll().isEmpty()) {
 			return;
 		}
-		
+
 		try {
-			String json = toString(context.getResources().openRawResource(
-					R.raw.data));
+			String json = toString(Activity.CURRENT_CONTEXT.getResources()
+					.openRawResource(R.raw.data));
 
 			JSONArray jsonHolcosts = new JSONArray(json);
 
@@ -56,7 +51,7 @@ public class DataLoader {
 				Holcost holcost = new Holcost();
 				holcost.setName(jsonHolcost.getString("name"));
 				holcost.setActive(false);
-				long holcostId = holcostDao.create(holcost);
+				long holcostId = HolcostDao.getInstance().create(holcost);
 				holcost.setId(holcostId);
 
 				SparseArray<Dude> dudes = new SparseArray<Dude>();
@@ -65,8 +60,8 @@ public class DataLoader {
 					JSONObject jsonDude = jsonDudes.getJSONObject(iter2);
 					Dude dude = new Dude();
 					dude.setName(jsonDude.getString("name"));
-					dude.setHolcostId(holcostId);
-					long dudeId = dudeDao.create(dude);
+					dude.setHolcost(new Holcost(holcostId));
+					long dudeId = DudeDao.getInstance().create(dude);
 					dude.setId(dudeId);
 					dudes.put(jsonDude.getInt("id"), dude);
 				}
@@ -84,8 +79,8 @@ public class DataLoader {
 						int participant = jsonParticipants.getInt(iter3);
 						participants.add(dudes.get(participant));
 					}
-					costService.createCost(name, amount, payer, participants,
-							holcost);
+					CostService.getInstance().createCost(name, amount, payer,
+							participants, holcost);
 				}
 			}
 

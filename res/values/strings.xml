@@ -4,7 +4,7 @@
     <string name="app_name">holcost</string>
     <string name="holcost_close">Close holcost</string>
     <string name="holcost_delete">Delete holcost</string>
-    <string name="dude_create">Create dude</string>
+    <string name="dude_create">Add dude</string>
     <string name="cost_delete">Delete cost</string>
     <string name="dude_delete">Delete dude</string>
     <string name="create_cost">Add new cost</string>
@@ -15,8 +15,8 @@
     <string name="holcost_name">Name</string>
     <string name="holcost_save">Save</string>
     <string name="holcost_list">List existing holcosts</string>
-    <string name="list_holcost_title">Select a holcost to open</string>
-    <string name="create_dude_title">Create new dude</string>
+    <string name="list_holcost_title">or select an existing one</string>
+    <string name="create_dude_title">Add new dude</string>
     <string name="dude_name">Name</string>
     <string name="dude_save">Save</string>
     <string name="create_cost_title">Create new cost</string>
@@ -42,5 +42,7 @@
     <string name="error_participant_required">One participant is required</string>
     <string name="error_dude_duplicated">Dude duplicated</string>
     <string name="error_dude_have_payed_costs">Dude has paid costs</string>
+    <string name="create_holcost_insert_name">Insert the name of new holcost</string>
+    <string name="create_dude_insert_name">Insert the name of dude</string>
 
 </resources>

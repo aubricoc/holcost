@@ -3,14 +3,18 @@
 
     <item
         android:id="@+id/createDudeMenu"
+        android:icon="@drawable/ic_action_social_add_person"
+        android:showAsAction="always"
         android:title="@string/dude_create"/>
-    
     <item
         android:id="@+id/closeHolcostMenu"
+        android:icon="@drawable/ic_action_content_undo"
+        android:showAsAction="ifRoom"
         android:title="@string/holcost_close"/>
-    
     <item
         android:id="@+id/deleteHolcostMenu"
+        android:icon="@drawable/ic_action_content_discard"
+        android:showAsAction="ifRoom"
         android:title="@string/holcost_delete"/>
 
 </menu>

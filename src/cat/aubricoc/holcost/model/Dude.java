@@ -1,12 +1,24 @@
 package cat.aubricoc.holcost.model;
 
+import cat.aubricoc.holcost.db.enums.Column;
+import cat.aubricoc.holcost.db.enums.Entity;
+import cat.aubricoc.holcost.db.enums.GeneratedValue;
+import cat.aubricoc.holcost.db.enums.Id;
+import cat.aubricoc.holcost.db.enums.OrderBy;
+
+@Entity
 public class Dude {
 
+	@Id
+	@GeneratedValue
 	private Long id;
-	
+
+	@Column(nullable = false)
+	@OrderBy
 	private String name;
-	
-	private Long holcostId;
+
+	@Column(nullable = false)
+	private Holcost holcost;
 
 	public Long getId() {
 		return id;
@@ -24,12 +36,12 @@ public class Dude {
 		this.name = name;
 	}
 
-	public Long getHolcostId() {
-		return holcostId;
+	public Holcost getHolcost() {
+		return holcost;
 	}
 
-	public void setHolcostId(Long holcostId) {
-		this.holcostId = holcostId;
+	public void setHolcost(Holcost holcost) {
+		this.holcost = holcost;
 	}
 
 	@Override

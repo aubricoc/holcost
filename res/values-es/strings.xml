@@ -4,7 +4,7 @@
     <string name="app_name">holcost</string>
     <string name="holcost_close">Cerrar holcost</string>
     <string name="holcost_delete">Eliminar holcost</string>
-    <string name="dude_create">Crear amigo</string>
+    <string name="dude_create">Añadir amigo</string>
     <string name="cost_delete">Eliminar gasto</string>
     <string name="dude_delete">Eliminar amigo</string>
     <string name="create_cost">Añadir gasto</string>
@@ -15,8 +15,8 @@
     <string name="holcost_name">Nombre</string>
     <string name="holcost_save">Guardar</string>
     <string name="holcost_list">Listar holcosts existentes</string>
-    <string name="list_holcost_title">Seleccionar el holcost a abrir</string>
-    <string name="create_dude_title">Crear un nuevo amigo</string>
+    <string name="list_holcost_title">o selecciona uno existente</string>
+    <string name="create_dude_title">Añadir un nuevo amigo</string>
     <string name="dude_name">Nombre</string>
     <string name="dude_save">Guardar</string>
     <string name="create_cost_title">Crear un nuevo gasto</string>
@@ -42,5 +42,7 @@
     <string name="error_participant_required">Es obligatorio al menos un participante</string>
     <string name="error_dude_duplicated">Amigo duplicado</string>
     <string name="error_dude_have_payed_costs">El amigo tiene gastos pagados</string>
+    <string name="create_holcost_insert_name">Introduce el nombre del nuevo holcost</string>
+    <string name="create_dude_insert_name">Introduce el nombew del amigo</string>
 
 </resources>

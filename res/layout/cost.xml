@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/createCostTitle"
-            style="@style/TitleText"
+            style="@style/title_text"
             android:text="@string/create_cost_title" />
 
         <EditText
             android:id="@+id/costName"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cost_name"
             android:inputType="text" >
@@ -25,37 +25,37 @@
 
         <EditText
             android:id="@+id/costAmount"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cost_amount"
             android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/costPayerLabel"
-            style="@style/InfoText"
+            style="@style/info_text"
             android:text="@string/cost_payer" />
 
         <Spinner
             android:id="@+id/costPayer"
-            style="@style/Spinner"
+            style="@style/spinner"
             android:background="@drawable/spinner" />
 
         <TextView
             android:id="@+id/costParticipantsLabel"
-            style="@style/InfoText"
+            style="@style/info_text"
             android:text="@string/cost_participants" />
 
         <LinearLayout
             android:id="@+id/costParticipantsContainer"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
         </LinearLayout>
 
         <Button
             android:id="@+id/createCostButton"
-            style="@style/ButtonText"
-            android:background="@drawable/button"
+            style="@style/button"
+            android:background="@drawable/background_button"
             android:text="@string/cost_save" />
     </LinearLayout>
 

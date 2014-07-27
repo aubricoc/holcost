@@ -24,28 +24,19 @@
         </activity>
         <activity
             android:name=".activity.CreateHolcostActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".activity.ListHolcostActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.CreateDudeActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.CostActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.ListCostActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.DudeActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

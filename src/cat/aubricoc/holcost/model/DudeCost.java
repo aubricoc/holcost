@@ -1,9 +1,15 @@
 package cat.aubricoc.holcost.model;
 
+import cat.aubricoc.holcost.db.enums.Entity;
+import cat.aubricoc.holcost.db.enums.Id;
+
+@Entity
 public class DudeCost {
 
+	@Id
 	private Dude dude;
 	
+	@Id
 	private Cost cost;
 
 	public Dude getDude() {

@@ -1,75 +1,66 @@
 package cat.aubricoc.holcost.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+import java.util.List;
+
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import cat.aubricoc.holcost.R;
 import cat.aubricoc.holcost.db.DataLoader;
+import cat.aubricoc.holcost.model.Holcost;
 import cat.aubricoc.holcost.service.HolcostService;
 
 public class CreateHolcostActivity extends Activity {
 
-	private HolcostService holcostService = new HolcostService(this);
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onCreate() {
 
-		setContentView(R.layout.create_holcost);
+		setTitle(R.string.create_holcost_title);
 
-		Button saveButton = (Button) findViewById(R.id.createHolcostButton);
-
-		saveButton.setOnClickListener(new OnClickListener() {
+		onClick(R.id.createHolcostButton, new OnClickListener() {
 			public void onClick(View v) {
 
-				EditText nameInput = (EditText) findViewById(R.id.holcostName);
-				String name = nameInput.getText().toString();
+				String name = getInputText(R.id.holcostName);
 
 				if (name == null || name.trim().length() == 0) {
 
-					Toast toast = Toast.makeText(CreateHolcostActivity.this,
-							getText(R.string.error_name_required), Toast.LENGTH_SHORT);
-					toast.show();
+					showToast(R.string.error_name_required);
 
 				} else if (name.equals("JSON2DB")) {
-					new DataLoader(CreateHolcostActivity.this).loadData();
-					
+					DataLoader.getInstance().loadData();
+
 				} else {
 
-					holcostService.createHolcost(name);
+					HolcostService.getInstance().createHolcost(name);
 
-					Intent intent = new Intent(CreateHolcostActivity.this,
-							HolcostActivity.class);
-					startActivity(intent);
-
-					finish();
+					goToAndFinish(HolcostActivity.class);
 				}
 			}
 		});
 
-		if (holcostService.existsHolcosts()) {
+		final List<Holcost> holcosts = HolcostService.getInstance()
+				.getAllHolcosts();
+		if (!holcosts.isEmpty()) {
 
-			Button listButton = (Button) findViewById(R.id.listHolcostButton);
-			listButton.setVisibility(View.VISIBLE);
-			listButton.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent intent = new Intent(CreateHolcostActivity.this,
-							ListHolcostActivity.class);
-					startActivityForResult(intent, 0);
+			show(R.id.listHolcostTitle);
+			show(R.id.listHolcost);
+			setList(R.id.listHolcost, holcosts, R.layout.list_line);
+			onItemClick(R.id.listHolcost, new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int position, long arg3) {
+
+					Holcost holcost = holcosts.get(position);
+					HolcostService.getInstance().openHolcost(holcost);
+
+					goToAndFinish(HolcostActivity.class);
 				}
 			});
 		}
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			finish();
-		}
+	protected int getLayoutId() {
+		return R.layout.activity_create_holcost;
 	}
 }
