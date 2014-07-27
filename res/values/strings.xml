@@ -19,7 +19,8 @@
     <string name="create_dude_title">Add new dude</string>
     <string name="dude_name">Name</string>
     <string name="dude_save">Save</string>
-    <string name="create_cost_title">Create new cost</string>
+    <string name="create_cost_title">Register new cost</string>
+    <string name="modify_cost_title">Modify cost</string>
     <string name="cost_name">Name</string>
     <string name="cost_amount">Amount</string>
     <string name="cost_payer">Payer</string>
@@ -44,5 +45,8 @@
     <string name="error_dude_have_payed_costs">Dude has paid costs</string>
     <string name="create_holcost_insert_name">Insert the name of new holcost</string>
     <string name="create_dude_insert_name">Insert the name of dude</string>
+    <string name="create_cost_insert_data">Insert cost data</string>
+    <string name="create_cost_select_payer">Select who paid</string>
+    <string name="create_cost_select_participants">Select who participates</string>
 
 </resources>

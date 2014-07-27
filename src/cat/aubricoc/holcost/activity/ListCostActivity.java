@@ -13,6 +13,7 @@ import cat.aubricoc.holcost.model.Cost;
 import cat.aubricoc.holcost.model.Holcost;
 import cat.aubricoc.holcost.service.CostService;
 import cat.aubricoc.holcost.service.HolcostService;
+import cat.aubricoc.holcost.util.Constants;
 
 public class ListCostActivity extends Activity {
 
@@ -34,7 +35,7 @@ public class ListCostActivity extends Activity {
 
 				Intent intent = new Intent(ListCostActivity.this,
 						CostActivity.class);
-				intent.putExtra("costId", costs.get(position).getId());
+				intent.putExtra(Constants.EXTRA_COST_ID, costs.get(position).getId());
 				startActivityForResult(intent, 0);
 			}
 		});

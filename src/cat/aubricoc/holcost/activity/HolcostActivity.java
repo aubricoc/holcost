@@ -132,9 +132,8 @@ public class HolcostActivity extends Activity {
 		case R.id.createDudeMenu:
 			goToForResult(CreateDudeActivity.class, 0);
 			return true;
-		default:
-			return false;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

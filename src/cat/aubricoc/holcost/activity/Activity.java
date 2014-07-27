@@ -60,7 +60,7 @@ public abstract class Activity extends android.app.Activity {
 			back();
 			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

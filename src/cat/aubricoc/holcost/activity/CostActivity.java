@@ -8,18 +8,16 @@ import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 import cat.aubricoc.holcost.R;
 import cat.aubricoc.holcost.model.Cost;
 import cat.aubricoc.holcost.model.Dude;
@@ -27,24 +25,28 @@ import cat.aubricoc.holcost.model.Holcost;
 import cat.aubricoc.holcost.service.CostService;
 import cat.aubricoc.holcost.service.DudeService;
 import cat.aubricoc.holcost.service.HolcostService;
+import cat.aubricoc.holcost.util.Constants;
 
 public class CostActivity extends Activity {
 
 	@Override
 	public void onCreate() {
 
-		Long costId = getIntent().getLongExtra("costId", -1);
+		setTitle(R.string.create_cost_title);
+		backButtonInActionBar = true;
+
+		Long costId = getIntent().getLongExtra(Constants.EXTRA_COST_ID, -1);
 
 		Holcost activeHolcost = HolcostService.getInstance().getActiveHolcost();
 		List<Dude> dudes = DudeService.getInstance().getDudesByHolcost(
 				activeHolcost);
-		final Cost cost = CostService.getInstance().getCostById(costId);
+		final Cost cost = costId > 0 ? CostService.getInstance().getCostById(
+				costId) : null;
 
-		final EditText nameInput = (EditText) findViewById(R.id.costName);
-		final EditText amountInput = (EditText) findViewById(R.id.costAmount);
 		if (cost != null) {
-			nameInput.setText(cost.getName());
-			amountInput.setText(cost.getAmount().toString());
+			setTitle(R.string.modify_cost_title);
+			setText(R.id.costName, cost.getName());
+			setText(R.id.costAmount, cost.getAmount().toString());
 		}
 
 		final Spinner payers = (Spinner) findViewById(R.id.costPayer);
@@ -66,11 +68,14 @@ public class CostActivity extends Activity {
 			participants = CostService.getInstance().getParticipants(cost);
 		}
 
+		LayoutInflater layoutInflater = getLayoutInflater();
+
 		LinearLayout participantsContainer = (LinearLayout) findViewById(R.id.costParticipantsContainer);
 		final Map<CheckBox, Dude> checkboxes = new HashMap<CheckBox, Dude>();
 		for (Dude dude : dudes) {
 
-			CheckBox checkBox = new CheckBox(this);
+			CheckBox checkBox = (CheckBox) layoutInflater.inflate(
+					R.layout.checkbox, participantsContainer, false);
 			checkBox.setText(dude.getName());
 			if (cost == null) {
 				checkBox.setChecked(true);
@@ -87,33 +92,22 @@ public class CostActivity extends Activity {
 		}
 		participantsContainer.refreshDrawableState();
 
-		Button saveButton = (Button) findViewById(R.id.createCostButton);
-
-		saveButton.setOnClickListener(new OnClickListener() {
+		onClick(R.id.createCostButton, new OnClickListener() {
 			public void onClick(View v) {
 
-				String name = nameInput.getText().toString();
+				String name = getInputText(R.id.costName);
 
 				if (name == null || name.trim().length() == 0) {
-
-					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_name_required),
-							Toast.LENGTH_SHORT);
-					toast.show();
+					showToast(R.string.error_name_required);
 					return;
 				}
 
-				String amountString = amountInput.getText().toString();
+				Double amount = getInputDouble(R.id.costAmount);
 
-				if (amountString == null || amountString.trim().length() == 0) {
-
-					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_amount_required),
-							Toast.LENGTH_SHORT);
-					toast.show();
+				if (amount == null || amount <= 0) {
+					showToast(R.string.error_amount_required);
 					return;
 				}
-				Double amount = Double.parseDouble(amountString);
 
 				Dude payer = (Dude) payers.getSelectedItem();
 
@@ -125,10 +119,7 @@ public class CostActivity extends Activity {
 				}
 
 				if (participants.isEmpty()) {
-					Toast toast = Toast.makeText(CostActivity.this,
-							getText(R.string.error_participant_required),
-							Toast.LENGTH_SHORT);
-					toast.show();
+					showToast(R.string.error_participant_required);
 					return;
 				}
 
@@ -143,14 +134,14 @@ public class CostActivity extends Activity {
 							payer, participants);
 				}
 				setResult(RESULT_OK);
-				finish();
+				back();
 			}
 		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Long costId = getIntent().getLongExtra("costId", -1);
+		Long costId = getIntent().getLongExtra(Constants.EXTRA_COST_ID, -1);
 		if (costId > -1) {
 			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.cost_menu, menu);
@@ -161,7 +152,8 @@ public class CostActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		final Long costId = getIntent().getLongExtra("costId", -1);
+		final Long costId = getIntent().getLongExtra(Constants.EXTRA_COST_ID,
+				-1);
 		switch (item.getItemId()) {
 		case R.id.deleteCostMenu:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -174,7 +166,7 @@ public class CostActivity extends Activity {
 									CostService.getInstance()
 											.deleteCost(costId);
 									setResult(RESULT_OK);
-									finish();
+									back();
 								}
 							})
 					.setNegativeButton(R.string.alert_no,
@@ -188,13 +180,12 @@ public class CostActivity extends Activity {
 			alert.show();
 
 			return true;
-		default:
-			return false;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
 	protected int getLayoutId() {
-		return R.layout.cost;
+		return R.layout.activity_cost;
 	}
 }

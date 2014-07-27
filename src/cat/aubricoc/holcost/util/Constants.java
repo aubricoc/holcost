@@ -7,4 +7,5 @@ public class Constants {
 	public static final int DATABASE_VERSION = 1;
 	
 	public static final String LOCK_DATABASE = "my_db_is_bloquejada______jaja";
+	public static final String EXTRA_COST_ID = "el_ID_del_CCCCCOOOST";
 }

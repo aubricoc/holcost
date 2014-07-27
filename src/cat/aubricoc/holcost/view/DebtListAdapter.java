@@ -15,7 +15,7 @@ public class DebtListAdapter extends ArrayAdapter<Debt> {
 
 	private int layoutDebtId;
 	private int layoutNoDebtId;
-	private LayoutInflater mInflater;
+	private LayoutInflater inflater;
 	private String textDebt;
 	private String textNoDebt;
 
@@ -25,7 +25,7 @@ public class DebtListAdapter extends ArrayAdapter<Debt> {
 		super(context, layoutDebtId, objects);
 		this.layoutDebtId = layoutDebtId;
 		this.layoutNoDebtId = layoutNoDebtId;
-		this.mInflater = (LayoutInflater) context
+		this.inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.textDebt = textDebt;
 		this.textNoDebt = textNoDebt;
@@ -46,7 +46,7 @@ public class DebtListAdapter extends ArrayAdapter<Debt> {
 		if (convertView == null) {
 			int resource = (debt.getDebtAmount().doubleValue() > 0) ? layoutDebtId
 					: layoutNoDebtId;
-			view = mInflater.inflate(resource, parent, false);
+			view = inflater.inflate(resource, parent, false);
 		} else {
 			view = convertView;
 		}

@@ -24,6 +24,7 @@ import cat.aubricoc.holcost.model.Dude;
 import cat.aubricoc.holcost.service.CostService;
 import cat.aubricoc.holcost.service.DebtService;
 import cat.aubricoc.holcost.service.DudeService;
+import cat.aubricoc.holcost.util.Constants;
 
 public class DudeActivity extends Activity {
 
@@ -64,7 +65,7 @@ public class DudeActivity extends Activity {
 
 					Intent intent = new Intent(DudeActivity.this,
 							CostActivity.class);
-					intent.putExtra("costId", payedCosts.get(position).getId());
+					intent.putExtra(Constants.EXTRA_COST_ID, payedCosts.get(position).getId());
 					startActivityForResult(intent, 0);
 				}
 			});
@@ -83,7 +84,7 @@ public class DudeActivity extends Activity {
 
 							Intent intent = new Intent(DudeActivity.this,
 									CostActivity.class);
-							intent.putExtra("costId",
+							intent.putExtra(Constants.EXTRA_COST_ID,
 									participantCosts.get(position).getId());
 							startActivityForResult(intent, 0);
 						}
@@ -168,9 +169,8 @@ public class DudeActivity extends Activity {
 			alert.show();
 
 			return true;
-		default:
-			return false;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

@@ -19,7 +19,8 @@
     <string name="create_dude_title">Añadir un nuevo amigo</string>
     <string name="dude_name">Nombre</string>
     <string name="dude_save">Guardar</string>
-    <string name="create_cost_title">Crear un nuevo gasto</string>
+    <string name="create_cost_title">Registrar un nuevo gasto</string>
+    <string name="modify_cost_title">Modificar gasto</string>
     <string name="cost_name">Nombre</string>
     <string name="cost_amount">Importe</string>
     <string name="cost_payer">Pagador</string>
@@ -43,6 +44,9 @@
     <string name="error_dude_duplicated">Amigo duplicado</string>
     <string name="error_dude_have_payed_costs">El amigo tiene gastos pagados</string>
     <string name="create_holcost_insert_name">Introduce el nombre del nuevo holcost</string>
-    <string name="create_dude_insert_name">Introduce el nombew del amigo</string>
+    <string name="create_dude_insert_name">Introduce el nombre del amigo</string>
+    <string name="create_cost_insert_data">Introduce los datos del gasto</string>
+    <string name="create_cost_select_payer">Selecciona quien pagó</string>
+    <string name="create_cost_select_participants">Selecciona los que participan</string>
 
 </resources>

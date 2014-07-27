@@ -19,7 +19,8 @@
     <string name="create_dude_title">Afegir un nou amic</string>
     <string name="dude_name">Nom</string>
     <string name="dude_save">Guardar</string>
-    <string name="create_cost_title">Crear una nova despesa</string>
+    <string name="create_cost_title">Registrar una nova despesa</string>
+    <string name="modify_cost_title">Modificar despesa</string>
     <string name="cost_name">Nom</string>
     <string name="cost_amount">Import</string>
     <string name="cost_payer">Pagador</string>
@@ -44,5 +45,8 @@
     <string name="error_dude_have_payed_costs">L\'amic té despeses pagades</string>
     <string name="create_holcost_insert_name">Introdueix el nom del nou holcost</string>
     <string name="create_dude_insert_name">Introdueix el nom de l\'amic</string>
+    <string name="create_cost_insert_data">Introdueix les dades de la despesa</string>
+    <string name="create_cost_select_payer">Selecciona qui ha pagat</string>
+    <string name="create_cost_select_participants">Selecciona els que participen</string>
 
 </resources>

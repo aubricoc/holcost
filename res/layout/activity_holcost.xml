@@ -10,6 +10,7 @@
         style="@style/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_social_add_person"
         android:text="@string/dude_create"
         android:visibility="gone" />
 
@@ -25,6 +26,7 @@
         style="@style/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_content_edit"
         android:text="@string/create_cost"
         android:visibility="gone" />
 
@@ -33,6 +35,7 @@
         style="@style/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_content_copy"
         android:text="@string/list_cost"
         android:visibility="gone" />
 
