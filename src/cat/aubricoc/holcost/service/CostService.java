@@ -111,6 +111,8 @@ public class CostService {
 	public void deleteCost(Long costId) {
 		Cost cost = new Cost();
 		cost.setId(costId);
+		List<DudeCost> dudeCosts = DudeCostDao.getInstance().getByCost(costId);
+		DudeCostDao.getInstance().delete(dudeCosts);
 		CostDao.getInstance().delete(cost);
 	}
 

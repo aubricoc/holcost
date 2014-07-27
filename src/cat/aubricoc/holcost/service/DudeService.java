@@ -3,9 +3,11 @@ package cat.aubricoc.holcost.service;
 import java.util.List;
 
 import cat.aubricoc.holcost.dao.CostDao;
+import cat.aubricoc.holcost.dao.DudeCostDao;
 import cat.aubricoc.holcost.dao.DudeDao;
 import cat.aubricoc.holcost.model.Cost;
 import cat.aubricoc.holcost.model.Dude;
+import cat.aubricoc.holcost.model.DudeCost;
 import cat.aubricoc.holcost.model.Holcost;
 
 public class DudeService {
@@ -48,6 +50,8 @@ public class DudeService {
 	public void deleteDude(Long dudeId) {
 		Dude dude = new Dude();
 		dude.setId(dudeId);
+		List<DudeCost> dudeCosts = DudeCostDao.getInstance().getByDude(dudeId);
+		DudeCostDao.getInstance().delete(dudeCosts);
 		DudeDao.getInstance().delete(dude);
 	}
 
