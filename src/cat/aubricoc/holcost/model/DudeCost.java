@@ -1,7 +1,7 @@
 package cat.aubricoc.holcost.model;
 
-import com.canteratech.apa.enums.Entity;
-import com.canteratech.apa.enums.Id;
+import com.canteratech.apa.annotation.Entity;
+import com.canteratech.apa.annotation.Id;
 
 @Entity
 public class DudeCost {
