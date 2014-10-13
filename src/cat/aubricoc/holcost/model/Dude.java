@@ -1,10 +1,10 @@
 package cat.aubricoc.holcost.model;
 
-import cat.aubricoc.holcost.db.enums.Column;
-import cat.aubricoc.holcost.db.enums.Entity;
-import cat.aubricoc.holcost.db.enums.GeneratedValue;
-import cat.aubricoc.holcost.db.enums.Id;
-import cat.aubricoc.holcost.db.enums.OrderBy;
+import com.canteratech.apa.enums.Column;
+import com.canteratech.apa.enums.Entity;
+import com.canteratech.apa.enums.GeneratedValue;
+import com.canteratech.apa.enums.Id;
+import com.canteratech.apa.enums.OrderBy;
 
 @Entity
 public class Dude {

@@ -12,6 +12,8 @@ import cat.aubricoc.holcost.model.DudeCost;
 import cat.aubricoc.holcost.model.Holcost;
 import cat.aubricoc.holcost.util.Constants;
 
+import com.canteratech.apa.DatabaseReflection;
+
 public class HolcostDatabaseHelper extends SQLiteOpenHelper {
 
 	public HolcostDatabaseHelper(Context context) {

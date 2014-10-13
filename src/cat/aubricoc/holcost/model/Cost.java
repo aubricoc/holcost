@@ -3,12 +3,12 @@ package cat.aubricoc.holcost.model;
 import java.util.Date;
 import java.util.List;
 
-import cat.aubricoc.holcost.db.enums.Column;
-import cat.aubricoc.holcost.db.enums.Entity;
-import cat.aubricoc.holcost.db.enums.GeneratedValue;
-import cat.aubricoc.holcost.db.enums.Id;
-import cat.aubricoc.holcost.db.enums.OrderBy;
-import cat.aubricoc.holcost.db.enums.Transient;
+import com.canteratech.apa.enums.Column;
+import com.canteratech.apa.enums.Entity;
+import com.canteratech.apa.enums.GeneratedValue;
+import com.canteratech.apa.enums.Id;
+import com.canteratech.apa.enums.OrderBy;
+import com.canteratech.apa.enums.Transient;
 
 @Entity
 public class Cost {

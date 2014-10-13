@@ -2,14 +2,18 @@ package cat.aubricoc.holcost.dao;
 
 import java.util.List;
 
+import cat.aubricoc.holcost.activity.Activity;
+import cat.aubricoc.holcost.db.HolcostDatabaseHelper;
 import cat.aubricoc.holcost.model.DudeCost;
+
+import com.canteratech.apa.Dao;
 
 public class DudeCostDao extends Dao<DudeCost, DudeCost> {
 
 	private static final DudeCostDao INSTANCE = new DudeCostDao();
 
 	private DudeCostDao() {
-		super(DudeCost.class);
+		super(new HolcostDatabaseHelper(Activity.CURRENT_CONTEXT), DudeCost.class);
 	}
 
 	public static DudeCostDao getInstance() {
